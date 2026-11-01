@@ -1,0 +1,73 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/reception/notebook_panel.gd" id="1_notebook"]
+
+[node name="NotebookPanel" type="PanelContainer"]
+clip_contents = true
+offset_right = 440.0
+offset_bottom = 640.0
+script = ExtResource("1_notebook")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="Column" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PageHeader" type="HBoxContainer" parent="Margin/Column"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PreviousPageButton" type="Button" parent="Margin/Column/PageHeader"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+text = "◀"
+
+[node name="PageTitle" type="Label" parent="Margin/Column/PageHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="NextPageButton" type="Button" parent="Margin/Column/PageHeader"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+text = "▶"
+
+[node name="PageText" type="RichTextLabel" parent="Margin/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 17
+bbcode_enabled = true
+scroll_following = true
+meta_underlined = false
+
+[node name="Separator" type="HSeparator" parent="Margin/Column"]
+layout_mode = 2
+
+[node name="SelectionLabel" type="Label" parent="Margin/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 3
+
+[node name="QuestionScroll" type="ScrollContainer" parent="Margin/Column"]
+custom_minimum_size = Vector2(0, 190)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="QuestionList" type="VBoxContainer" parent="Margin/Column/QuestionScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4

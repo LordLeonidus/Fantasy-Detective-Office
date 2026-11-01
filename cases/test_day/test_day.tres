@@ -1,0 +1,785 @@
+[gd_resource type="Resource" script_class="ReceptionDayDefinition" format=3]
+
+[ext_resource type="Script" path="res://cases/data/reception_day_definition.gd" id="1_day"]
+[ext_resource type="Script" path="res://cases/data/fact_definition.gd" id="2_fact"]
+[ext_resource type="Script" path="res://cases/data/knowledge_entry.gd" id="3_entry"]
+[ext_resource type="Script" path="res://cases/data/visitor_definition.gd" id="4_visitor"]
+[ext_resource type="Script" path="res://cases/data/question_template.gd" id="5_question"]
+[ext_resource type="Resource" path="res://cases/questions/time_exact.tres" id="q_time"]
+[ext_resource type="Resource" path="res://cases/questions/place_where.tres" id="q_pwhere"]
+[ext_resource type="Resource" path="res://cases/questions/place_who.tres" id="q_pwho"]
+[ext_resource type="Resource" path="res://cases/questions/person_looks.tres" id="q_plooks"]
+[ext_resource type="Resource" path="res://cases/questions/person_know.tres" id="q_pknow"]
+[ext_resource type="Resource" path="res://cases/questions/item_looks.tres" id="q_ilooks"]
+[ext_resource type="Resource" path="res://cases/questions/item_value.tres" id="q_ivalue"]
+[ext_resource type="Resource" path="res://cases/questions/money_exact.tres" id="q_money"]
+[ext_resource type="Resource" path="res://cases/questions/event_how.tres" id="q_ehow"]
+[ext_resource type="Resource" path="res://cases/questions/event_who.tres" id="q_ewho"]
+[ext_resource type="Resource" path="res://cases/questions/sign_more.tres" id="q_smore"]
+[ext_resource type="Texture2D" path="res://cases/test_day/art/visitor_irena.png" id="20_irena"]
+[ext_resource type="Texture2D" path="res://cases/test_day/art/visitor_tomas.png" id="21_tomas"]
+[ext_resource type="Texture2D" path="res://cases/test_day/art/visitor_milan.png" id="22_milan"]
+
+[sub_resource type="Resource" id="q_where_phone"]
+script = ExtResource("5_question")
+id = &"where_phone"
+text = "Где он лежал?"
+
+[sub_resource type="Resource" id="q_why_spravka"]
+script = ExtResource("5_question")
+id = &"why_spravka"
+text = "Зачем вам справка?"
+
+[sub_resource type="Resource" id="q_insured"]
+script = ExtResource("5_question")
+id = &"insured"
+text = "Телефон застрахован?"
+
+[sub_resource type="Resource" id="q_trauma_cert"]
+script = ExtResource("5_question")
+id = &"trauma_cert"
+text = "Справка из травмпункта есть?"
+
+[sub_resource type="Resource" id="q_card_blocked"]
+script = ExtResource("5_question")
+id = &"card_blocked"
+text = "Карту заблокировали?"
+
+[sub_resource type="Resource" id="fact_koshelyok"]
+script = ExtResource("2_fact")
+id = &"koshelyok"
+kind = 3
+note = "украли кошелёк"
+
+[sub_resource type="Resource" id="fact_semyorka"]
+script = ExtResource("2_fact")
+id = &"semyorka"
+kind = 1
+note = "ехала на автобусе №7"
+
+[sub_resource type="Resource" id="fact_rynok"]
+script = ExtResource("2_fact")
+id = &"rynok"
+kind = 1
+note = "села у рынка"
+
+[sub_resource type="Resource" id="fact_vchera_utrom"]
+script = ExtResource("2_fact")
+id = &"vchera_utrom"
+kind = 0
+note = "украли вчера утром"
+
+[sub_resource type="Resource" id="fact_bitkom"]
+script = ExtResource("2_fact")
+id = &"bitkom"
+kind = 5
+note = "в автобусе было битком"
+
+[sub_resource type="Resource" id="fact_sumka_rasstegnuta"]
+script = ExtResource("2_fact")
+id = &"sumka_rasstegnuta"
+kind = 7
+note = "дома увидела: сумка расстёгнута, кошелька нет"
+
+[sub_resource type="Resource" id="fact_pensiya"]
+script = ExtResource("2_fact")
+id = &"pensiya"
+kind = 4
+note = "в кошельке была вся пенсия"
+
+[sub_resource type="Resource" id="fact_sum_6200"]
+script = ExtResource("2_fact")
+id = &"sum_6200"
+kind = 4
+note = "в кошельке было 6 200"
+
+[sub_resource type="Resource" id="fact_pension_yesterday"]
+script = ExtResource("2_fact")
+id = &"pension_yesterday"
+kind = 7
+note = "пенсию получила накануне"
+
+[sub_resource type="Resource" id="fact_okolo_10"]
+script = ExtResource("2_fact")
+id = &"okolo_10"
+kind = 0
+note = "села в автобус около 10:00"
+
+[sub_resource type="Resource" id="fact_sadovaya"]
+script = ExtResource("2_fact")
+id = &"sadovaya"
+kind = 1
+note = "вышла на Садовой"
+
+[sub_resource type="Resource" id="fact_rynok_tolpa"]
+script = ExtResource("2_fact")
+id = &"rynok_tolpa"
+kind = 7
+note = "у рынка всегда толпа"
+
+[sub_resource type="Resource" id="fact_always_7"]
+script = ExtResource("2_fact")
+id = &"always_7"
+kind = 7
+note = "всегда ездит на семёрке"
+
+[sub_resource type="Resource" id="fact_devushka_ryadom"]
+script = ExtResource("2_fact")
+id = &"devushka_ryadom"
+kind = 2
+note = "рядом в автобусе стояла девушка"
+
+[sub_resource type="Resource" id="fact_zhalas"]
+script = ExtResource("2_fact")
+id = &"zhalas"
+kind = 5
+note = "девушка всё жалась к ней"
+
+[sub_resource type="Resource" id="fact_sumku_prizhimala"]
+script = ExtResource("2_fact")
+id = &"sumku_prizhimala"
+kind = 7
+note = "сумку прижимала к себе"
+
+[sub_resource type="Resource" id="fact_koshelyok_primety"]
+script = ExtResource("2_fact")
+id = &"koshelyok_primety"
+kind = 7
+note = "кошелёк коричневый, кожаный, с застёжкой"
+
+[sub_resource type="Resource" id="fact_koshelyok_deshevy"]
+script = ExtResource("2_fact")
+id = &"koshelyok_deshevy"
+kind = 7
+note = "кошелёк старый, дешёвый"
+
+[sub_resource type="Resource" id="fact_molodaya"]
+script = ExtResource("2_fact")
+id = &"molodaya"
+kind = 6
+note = "девушка молодая"
+
+[sub_resource type="Resource" id="fact_ryzhaya"]
+script = ExtResource("2_fact")
+id = &"ryzhaya"
+kind = 6
+note = "девушка рыжая"
+
+[sub_resource type="Resource" id="fact_zelenaya_kurtka"]
+script = ExtResource("2_fact")
+id = &"zelenaya_kurtka"
+kind = 6
+note = "девушка в зелёной куртке"
+
+[sub_resource type="Resource" id="fact_bolshaya_sumka"]
+script = ExtResource("2_fact")
+id = &"bolshaya_sumka"
+kind = 6
+note = "у девушки большая сумка"
+
+[sub_resource type="Resource" id="fact_ne_znakoma"]
+script = ExtResource("2_fact")
+id = &"ne_znakoma"
+kind = 7
+note = "девушку раньше не видела"
+
+[sub_resource type="Resource" id="fact_vremya_1005"]
+script = ExtResource("2_fact")
+id = &"vremya_1005"
+kind = 0
+note = "села около 10:05"
+
+[sub_resource type="Resource" id="fact_sadovaya_apteka"]
+script = ExtResource("2_fact")
+id = &"sadovaya_apteka"
+kind = 1
+note = "вышла на Садовой у аптеки"
+
+[sub_resource type="Resource" id="fact_zhivet_sadovaya"]
+script = ExtResource("2_fact")
+id = &"zhivet_sadovaya"
+kind = 7
+note = "живёт на Садовой"
+
+[sub_resource type="Resource" id="fact_hvost"]
+script = ExtResource("2_fact")
+id = &"hvost"
+kind = 6
+note = "у рыжей волосы собраны в хвост"
+
+[sub_resource type="Resource" id="fact_hudoe_lico"]
+script = ExtResource("2_fact")
+id = &"hudoe_lico"
+kind = 6
+note = "у рыжей худое лицо"
+
+[sub_resource type="Resource" id="fact_sumka_tryapichnaya"]
+script = ExtResource("2_fact")
+id = &"sumka_tryapichnaya"
+kind = 6
+note = "у девушки сумка тряпичная, тёмная, через плечо"
+
+[sub_resource type="Resource" id="fact_telefon"]
+script = ExtResource("2_fact")
+id = &"telefon"
+kind = 3
+note = "украли телефон"
+extra_questions = Array[ExtResource("5_question")]([SubResource("q_where_phone")])
+
+[sub_resource type="Resource" id="fact_vchera_vecherom"]
+script = ExtResource("2_fact")
+id = &"vchera_vecherom"
+kind = 0
+note = "украли вчера вечером"
+
+[sub_resource type="Resource" id="fact_bar_yakor"]
+script = ExtResource("2_fact")
+id = &"bar_yakor"
+kind = 1
+note = "украли в баре «Якорь»"
+
+[sub_resource type="Resource" id="fact_dorogoy"]
+script = ExtResource("2_fact")
+id = &"dorogoy"
+kind = 4
+note = "телефон новый, дорогой"
+
+[sub_resource type="Resource" id="fact_spravka"]
+script = ExtResource("2_fact")
+id = &"spravka"
+kind = 7
+note = "нужна справка о принятом заявлении"
+extra_questions = Array[ExtResource("5_question")]([SubResource("q_why_spravka")])
+
+[sub_resource type="Resource" id="fact_strahovaya"]
+script = ExtResource("2_fact")
+id = &"strahovaya"
+kind = 7
+note = "справка нужна для страховой"
+extra_questions = Array[ExtResource("5_question")]([SubResource("q_insured")])
+
+[sub_resource type="Resource" id="fact_sum_40000"]
+script = ExtResource("2_fact")
+id = &"sum_40000"
+kind = 4
+note = "телефон стоит 40 000"
+
+[sub_resource type="Resource" id="fact_zastrahovan"]
+script = ExtResource("2_fact")
+id = &"zastrahovan"
+kind = 7
+note = "телефон застрахован на полную стоимость"
+
+[sub_resource type="Resource" id="fact_telefon_primety"]
+script = ExtResource("2_fact")
+id = &"telefon_primety"
+kind = 7
+note = "телефон чёрный, последняя модель, в чехле"
+
+[sub_resource type="Resource" id="fact_na_stole"]
+script = ExtResource("2_fact")
+id = &"na_stole"
+kind = 7
+note = "телефон лежал на столе"
+
+[sub_resource type="Resource" id="fact_otoshel"]
+script = ExtResource("2_fact")
+id = &"otoshel"
+kind = 5
+note = "отошёл от стола — телефона не стало"
+
+[sub_resource type="Resource" id="fact_portovaya"]
+script = ExtResource("2_fact")
+id = &"portovaya"
+kind = 1
+note = "бар «Якорь» на Портовой"
+
+[sub_resource type="Resource" id="fact_barmen_yozef"]
+script = ExtResource("2_fact")
+id = &"barmen_yozef"
+kind = 2
+note = "в баре работает бармен Йозеф"
+
+[sub_resource type="Resource" id="fact_do_23"]
+script = ExtResource("2_fact")
+id = &"do_23"
+kind = 0
+note = "сидел в баре до 23:00"
+
+[sub_resource type="Resource" id="fact_taksi"]
+script = ExtResource("2_fact")
+id = &"taksi"
+kind = 7
+note = "домой уехал на такси"
+
+[sub_resource type="Resource" id="fact_bez_spravki"]
+script = ExtResource("2_fact")
+id = &"bez_spravki"
+kind = 7
+note = "страховая без справки не платит"
+
+[sub_resource type="Resource" id="fact_vsyo_strahuet"]
+script = ExtResource("2_fact")
+id = &"vsyo_strahuet"
+kind = 7
+note = "говорит, что всё страхует"
+
+[sub_resource type="Resource" id="fact_yozef_primety"]
+script = ExtResource("2_fact")
+id = &"yozef_primety"
+kind = 6
+note = "бармен Йозеф лысый, с бородой"
+
+[sub_resource type="Resource" id="fact_chasto_v_bare"]
+script = ExtResource("2_fact")
+id = &"chasto_v_bare"
+kind = 7
+note = "часто бывает в «Якоре»"
+
+[sub_resource type="Resource" id="fact_chek"]
+script = ExtResource("2_fact")
+id = &"chek"
+kind = 7
+note = "на телефон есть чек"
+
+[sub_resource type="Resource" id="fact_nochyu"]
+script = ExtResource("2_fact")
+id = &"nochyu"
+kind = 0
+note = "избили вчера ночью"
+
+[sub_resource type="Resource" id="fact_dvor_zavodskaya"]
+script = ExtResource("2_fact")
+id = &"dvor_zavodskaya"
+kind = 1
+note = "во дворе на Заводской, 12"
+
+[sub_resource type="Resource" id="fact_izbili"]
+script = ExtResource("2_fact")
+id = &"izbili"
+kind = 5
+note = "его избили"
+
+[sub_resource type="Resource" id="fact_dvoe_troe"]
+script = ExtResource("2_fact")
+id = &"dvoe_troe"
+kind = 7
+note = "напали двое или трое, сзади"
+
+[sub_resource type="Resource" id="fact_nichego_ne_videl"]
+script = ExtResource("2_fact")
+id = &"nichego_ne_videl"
+kind = 7
+note = "нападавших не видел"
+
+[sub_resource type="Resource" id="fact_rebro"]
+script = ExtResource("2_fact")
+id = &"rebro"
+kind = 7
+note = "сломали ребро, был в травмпункте"
+extra_questions = Array[ExtResource("5_question")]([SubResource("q_trauma_cert")])
+
+[sub_resource type="Resource" id="fact_bumazhnik"]
+script = ExtResource("2_fact")
+id = &"bumazhnik"
+kind = 3
+note = "забрали бумажник"
+
+[sub_resource type="Resource" id="fact_okolo_1"]
+script = ExtResource("2_fact")
+id = &"okolo_1"
+kind = 0
+note = "избили около 1:00"
+
+[sub_resource type="Resource" id="fact_so_smeny"]
+script = ExtResource("2_fact")
+id = &"so_smeny"
+kind = 7
+note = "шёл домой со смены"
+
+[sub_resource type="Resource" id="fact_u_garazhey"]
+script = ExtResource("2_fact")
+id = &"u_garazhey"
+kind = 1
+note = "между домами, у гаражей"
+
+[sub_resource type="Resource" id="fact_fonar"]
+script = ExtResource("2_fact")
+id = &"fonar"
+kind = 7
+note = "во дворе темно, фонарь не горит"
+
+[sub_resource type="Resource" id="fact_kak_bili"]
+script = ExtResource("2_fact")
+id = &"kak_bili"
+kind = 7
+note = "ударили сзади по голове, потом били ногами"
+
+[sub_resource type="Resource" id="fact_molodye_golosa"]
+script = ExtResource("2_fact")
+id = &"molodye_golosa"
+kind = 6
+note = "у нападавших молодые голоса"
+
+[sub_resource type="Resource" id="fact_bumazhnik_primety"]
+script = ExtResource("2_fact")
+id = &"bumazhnik_primety"
+kind = 7
+note = "бумажник чёрный, потёртый"
+
+[sub_resource type="Resource" id="fact_sum_1500"]
+script = ExtResource("2_fact")
+id = &"sum_1500"
+kind = 4
+note = "в бумажнике было 1 500"
+
+[sub_resource type="Resource" id="fact_kartochka"]
+script = ExtResource("2_fact")
+id = &"kartochka"
+kind = 3
+note = "в бумажнике была банковская карточка"
+extra_questions = Array[ExtResource("5_question")]([SubResource("q_card_blocked")])
+
+[sub_resource type="Resource" id="fact_zablokirovana"]
+script = ExtResource("2_fact")
+id = &"zablokirovana"
+kind = 7
+note = "карточку заблокировал только утром"
+
+[sub_resource type="Resource" id="fact_spravka_travm"]
+script = ExtResource("2_fact")
+id = &"spravka_travm"
+kind = 7
+note = "есть справка из травмпункта"
+
+[sub_resource type="Resource" id="fact_vremya_0050"]
+script = ExtResource("2_fact")
+id = &"vremya_0050"
+kind = 0
+note = "избили около 0:50"
+
+[sub_resource type="Resource" id="fact_smena_polnoch"]
+script = ExtResource("2_fact")
+id = &"smena_polnoch"
+kind = 7
+note = "смена кончилась в полночь"
+
+[sub_resource type="Resource" id="fact_podrostki"]
+script = ExtResource("2_fact")
+id = &"podrostki"
+kind = 6
+note = "по голосам — подростки лет шестнадцати"
+
+[sub_resource type="Resource" id="e_irena_01"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_pensiya")
+question = ExtResource("q_money")
+answer = "[Шесть тысяч двести|sum_6200]. [Вчера только получила|pension_yesterday]."
+
+[sub_resource type="Resource" id="e_irena_02"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_vchera_utrom")
+question = ExtResource("q_time")
+answer = "[Села у рынка, было начало одиннадцатого|okolo_10]."
+
+[sub_resource type="Resource" id="e_irena_03"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_rynok")
+question = ExtResource("q_pwhere")
+answer = "Села на остановке у рынка, [вышла на Садовой|sadovaya]."
+
+[sub_resource type="Resource" id="e_irena_04"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_rynok")
+question = ExtResource("q_pwho")
+answer = "Ой, [там всегда толпа. Торговки, покупатели|rynok_tolpa]..."
+
+[sub_resource type="Resource" id="e_irena_05"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_semyorka")
+question = ExtResource("q_pwhere")
+answer = "Ну семёрка, автобус. [Я всегда на ней езжу|always_7]."
+
+[sub_resource type="Resource" id="e_irena_06"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_semyorka")
+question = ExtResource("q_pwho")
+answer = "Битком было. Рядом [девушка стояла|devushka_ryadom], [всё ко мне жалась|zhalas]."
+
+[sub_resource type="Resource" id="e_irena_07"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_bitkom")
+question = ExtResource("q_ewho")
+answer = "Рядом [девушка стояла|devushka_ryadom], [всё ко мне жалась|zhalas]. Я думала — тесно."
+
+[sub_resource type="Resource" id="e_irena_08"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_bitkom")
+question = ExtResource("q_ehow")
+answer = "Толкались все, [я сумку к себе прижимала|sumku_prizhimala]... Видать, не уберегла."
+
+[sub_resource type="Resource" id="e_irena_09"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_koshelyok")
+question = ExtResource("q_ilooks")
+answer = "[Коричневый, кожаный, с застёжкой|koshelyok_primety]."
+
+[sub_resource type="Resource" id="e_irena_10"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_koshelyok")
+question = ExtResource("q_ivalue")
+answer = "Да [старенький он, копейки стоит|koshelyok_deshevy]. Деньги жалко."
+
+[sub_resource type="Resource" id="e_irena_11"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_devushka_ryadom")
+question = ExtResource("q_plooks")
+answer = "[Молодая|molodaya], [рыжая|ryzhaya], [в зелёной куртке|zelenaya_kurtka]. [Сумка у неё большая|bolshaya_sumka]."
+
+[sub_resource type="Resource" id="e_irena_12"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_devushka_ryadom")
+question = ExtResource("q_pknow")
+answer = "Нет, [первый раз видела|ne_znakoma]."
+
+[sub_resource type="Resource" id="e_irena_13"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_sum_6200")
+question = ExtResource("q_money")
+answer = "Шесть двести, до копеечки."
+
+[sub_resource type="Resource" id="e_irena_14"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_okolo_10")
+question = ExtResource("q_time")
+answer = "[Минут пять одиннадцатого|vremya_1005]. Я на часы глянула, когда садилась."
+
+[sub_resource type="Resource" id="e_irena_15"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_sadovaya")
+question = ExtResource("q_pwhere")
+answer = "[Садовая, у аптеки|sadovaya_apteka]. [Я там живу|zhivet_sadovaya]."
+
+[sub_resource type="Resource" id="e_irena_16"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_sadovaya")
+question = ExtResource("q_pwho")
+answer = "Не смотрела я, домой спешила."
+
+[sub_resource type="Resource" id="e_irena_17"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_ryzhaya")
+question = ExtResource("q_smore")
+answer = "[Волосы яркие, в хвост собраны|hvost]. [И лицо худое такое|hudoe_lico]."
+
+[sub_resource type="Resource" id="e_irena_18"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_bolshaya_sumka")
+question = ExtResource("q_smore")
+answer = "[Сумка тряпичная, тёмная, через плечо|sumka_tryapichnaya]."
+
+[sub_resource type="Resource" id="e_tomas_01"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_dorogoy")
+question = ExtResource("q_money")
+answer = "[Сорок тысяч|sum_40000]. [Застрахован на полную стоимость|zastrahovan]."
+
+[sub_resource type="Resource" id="e_tomas_02"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_telefon")
+question = ExtResource("q_ilooks")
+answer = "[Чёрный, последняя модель. В чехле|telefon_primety]."
+
+[sub_resource type="Resource" id="e_tomas_03"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_telefon")
+question = ExtResource("q_ivalue")
+answer = "[Сорок тысяч|sum_40000]. Я же говорю, новый."
+
+[sub_resource type="Resource" id="e_tomas_04"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_telefon")
+question = SubResource("q_where_phone")
+answer = "[На столе лежал|na_stole]. [Отошёл — вернулся, нет|otoshel]."
+
+[sub_resource type="Resource" id="e_tomas_05"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_bar_yakor")
+question = ExtResource("q_pwhere")
+answer = "[На Портовой|portovaya]. Знаете, наверное."
+
+[sub_resource type="Resource" id="e_tomas_06"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_bar_yakor")
+question = ExtResource("q_pwho")
+answer = "[Бармен там, Йозеф|barmen_yozef]. Он всех знает."
+
+[sub_resource type="Resource" id="e_tomas_07"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_vchera_vecherom")
+question = ExtResource("q_time")
+answer = "Часов [до одиннадцати сидел|do_23], потом [на такси домой|taksi]."
+
+[sub_resource type="Resource" id="e_tomas_08"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_spravka")
+question = SubResource("q_why_spravka")
+answer = "Для страховой, я же сказал. [Без справки они не платят|bez_spravki]."
+
+[sub_resource type="Resource" id="e_tomas_09"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_strahovaya")
+question = SubResource("q_insured")
+answer = "Конечно. [Я всё страхую|vsyo_strahuet]."
+
+[sub_resource type="Resource" id="e_tomas_10"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_barmen_yozef")
+question = ExtResource("q_plooks")
+answer = "[Лысый такой, с бородой|yozef_primety]. Да вы его узнаете."
+
+[sub_resource type="Resource" id="e_tomas_11"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_barmen_yozef")
+question = ExtResource("q_pknow")
+answer = "Ну так, знакомы. [Я там часто бываю|chasto_v_bare]."
+
+[sub_resource type="Resource" id="e_tomas_12"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_sum_40000")
+question = ExtResource("q_money")
+answer = "Сорок тысяч ровно. [Чек есть|chek]."
+
+[sub_resource type="Resource" id="e_tomas_13"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_do_23")
+question = ExtResource("q_time")
+answer = "Ну, около одиннадцати. Может, без десяти."
+
+[sub_resource type="Resource" id="e_milan_01"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_nochyu")
+question = ExtResource("q_time")
+answer = "[Где-то в час|okolo_1]. [Со смены шёл|so_smeny]."
+
+[sub_resource type="Resource" id="e_milan_02"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_dvor_zavodskaya")
+question = ExtResource("q_pwhere")
+answer = "[Между домами, где гаражи|u_garazhey]. Там [темень, фонарь сто лет не горит|fonar]."
+
+[sub_resource type="Resource" id="e_milan_03"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_dvor_zavodskaya")
+question = ExtResource("q_pwho")
+answer = "Никого. Ночь же."
+
+[sub_resource type="Resource" id="e_milan_04"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_izbili")
+question = ExtResource("q_ehow")
+answer = "[Сзади по голове, я упал, потом ногами|kak_bili]. Быстро всё."
+
+[sub_resource type="Resource" id="e_milan_05"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_izbili")
+question = ExtResource("q_ewho")
+answer = "Не видел я. [Голоса молодые|molodye_golosa]."
+
+[sub_resource type="Resource" id="e_milan_06"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_bumazhnik")
+question = ExtResource("q_ilooks")
+answer = "[Чёрный, потёртый|bumazhnik_primety]. Ничего особенного."
+
+[sub_resource type="Resource" id="e_milan_07"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_bumazhnik")
+question = ExtResource("q_ivalue")
+answer = "[Полторы тысячи|sum_1500] там было и [карточка|kartochka]."
+
+[sub_resource type="Resource" id="e_milan_08"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_kartochka")
+question = ExtResource("q_ilooks")
+answer = "Банковская, обычная."
+
+[sub_resource type="Resource" id="e_milan_09"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_kartochka")
+question = SubResource("q_card_blocked")
+answer = "[Утром только заблокировал|zablokirovana]."
+
+[sub_resource type="Resource" id="e_milan_10"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_rebro")
+question = SubResource("q_trauma_cert")
+answer = "[Есть. Вот, держите|spravka_travm]."
+
+[sub_resource type="Resource" id="e_milan_11"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_okolo_1")
+question = ExtResource("q_time")
+answer = "[Без десяти час, наверное|vremya_0050]. [Смена в полночь кончилась|smena_polnoch]."
+
+[sub_resource type="Resource" id="e_milan_12"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_sum_1500")
+question = ExtResource("q_money")
+answer = "Полторы. Может, чуть больше."
+
+[sub_resource type="Resource" id="e_milan_13"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_molodye_golosa")
+question = ExtResource("q_smore")
+answer = "[Ржали они. Пацаны совсем, лет по шестнадцать|podrostki]."
+
+[sub_resource type="Resource" id="visitor_irena"]
+script = ExtResource("4_visitor")
+id = &"irena"
+display_name = "Ирена Ковач"
+portrait = ExtResource("20_irena")
+portrait_scale = 0.9
+monologue = "Сынок, [у меня кошелёк украли|koshelyok]. [Ехала на семёрке|semyorka] [от рынка|rynok], [вчера утром|vchera_utrom]. [Народу было — битком|bitkom]. [Дома смотрю: сумка расстёгнута, кошелька нет|sumka_rasstegnuta]. А [там вся пенсия|pensiya]."
+knowledge = Array[ExtResource("3_entry")]([SubResource("e_irena_01"), SubResource("e_irena_02"), SubResource("e_irena_03"), SubResource("e_irena_04"), SubResource("e_irena_05"), SubResource("e_irena_06"), SubResource("e_irena_07"), SubResource("e_irena_08"), SubResource("e_irena_09"), SubResource("e_irena_10"), SubResource("e_irena_11"), SubResource("e_irena_12"), SubResource("e_irena_13"), SubResource("e_irena_14"), SubResource("e_irena_15"), SubResource("e_irena_16"), SubResource("e_irena_17"), SubResource("e_irena_18")])
+fallback_replies = PackedStringArray("Ой, не помню я, сынок.", "Да откуда ж мне знать...", "Не знаю я, не обратила внимания.")
+accept_reply = "Спасибо, сынок. Найдёте ведь?"
+refuse_reply = "Как же так... Это же вся пенсия."
+can_be_talked_out = true
+talk_out_success_reply = "Ну, раз не найдёте... Ладно. Пойду я."
+talk_out_fail_reply = ""
+
+[sub_resource type="Resource" id="visitor_tomas"]
+script = ExtResource("4_visitor")
+id = &"tomas"
+display_name = "Томаш Белик"
+portrait = ExtResource("21_tomas")
+portrait_scale = 1.05
+monologue = "[У меня украли телефон|telefon]. [Вчера вечером|vchera_vecherom], [в баре «Якорь»|bar_yakor]. [Новый, дорогой|dorogoy]. Мне, честно, нужна только [справка, что заявление принято|spravka], — [для страховой|strahovaya]."
+knowledge = Array[ExtResource("3_entry")]([SubResource("e_tomas_01"), SubResource("e_tomas_02"), SubResource("e_tomas_03"), SubResource("e_tomas_04"), SubResource("e_tomas_05"), SubResource("e_tomas_06"), SubResource("e_tomas_07"), SubResource("e_tomas_08"), SubResource("e_tomas_09"), SubResource("e_tomas_10"), SubResource("e_tomas_11"), SubResource("e_tomas_12"), SubResource("e_tomas_13")])
+fallback_replies = PackedStringArray("Слушайте, я не помню. Давайте по делу.", "Понятия не имею.", "Это важно? Я тороплюсь.")
+accept_reply = "Отлично. Справку можно сразу?"
+refuse_reply = "Ну и работнички."
+can_be_talked_out = true
+talk_out_success_reply = "Ладно. Сам разберусь."
+talk_out_fail_reply = ""
+
+[sub_resource type="Resource" id="visitor_milan"]
+script = ExtResource("4_visitor")
+id = &"milan"
+display_name = "Милан Горак"
+portrait = ExtResource("22_milan")
+portrait_scale = 1.0
+monologue = "[Вчера ночью|nochyu] [во дворе на Заводской, 12|dvor_zavodskaya] [меня избили|izbili]. [Двое или трое, сзади|dvoe_troe]. Я [ничего не видел|nichego_ne_videl]. [Ребро сломали, в травмпункте сказали|rebro]. И [бумажник забрали|bumazhnik]."
+knowledge = Array[ExtResource("3_entry")]([SubResource("e_milan_01"), SubResource("e_milan_02"), SubResource("e_milan_03"), SubResource("e_milan_04"), SubResource("e_milan_05"), SubResource("e_milan_06"), SubResource("e_milan_07"), SubResource("e_milan_08"), SubResource("e_milan_09"), SubResource("e_milan_10"), SubResource("e_milan_11"), SubResource("e_milan_12"), SubResource("e_milan_13")])
+fallback_replies = PackedStringArray("Чего? Не знаю.", "Не видел я ничего, говорю же.", "Да откуда мне знать.")
+accept_reply = "Хоть кто-то."
+refuse_reply = "Да вы тут совсем..."
+can_be_talked_out = false
+talk_out_success_reply = ""
+talk_out_fail_reply = "Мне ребро сломали, а ты — не пиши?!"
+
+[resource]
+script = ExtResource("1_day")
+facts = Array[ExtResource("2_fact")]([SubResource("fact_koshelyok"), SubResource("fact_semyorka"), SubResource("fact_rynok"), SubResource("fact_vchera_utrom"), SubResource("fact_bitkom"), SubResource("fact_sumka_rasstegnuta"), SubResource("fact_pensiya"), SubResource("fact_sum_6200"), SubResource("fact_pension_yesterday"), SubResource("fact_okolo_10"), SubResource("fact_sadovaya"), SubResource("fact_rynok_tolpa"), SubResource("fact_always_7"), SubResource("fact_devushka_ryadom"), SubResource("fact_zhalas"), SubResource("fact_sumku_prizhimala"), SubResource("fact_koshelyok_primety"), SubResource("fact_koshelyok_deshevy"), SubResource("fact_molodaya"), SubResource("fact_ryzhaya"), SubResource("fact_zelenaya_kurtka"), SubResource("fact_bolshaya_sumka"), SubResource("fact_ne_znakoma"), SubResource("fact_vremya_1005"), SubResource("fact_sadovaya_apteka"), SubResource("fact_zhivet_sadovaya"), SubResource("fact_hvost"), SubResource("fact_hudoe_lico"), SubResource("fact_sumka_tryapichnaya"), SubResource("fact_telefon"), SubResource("fact_vchera_vecherom"), SubResource("fact_bar_yakor"), SubResource("fact_dorogoy"), SubResource("fact_spravka"), SubResource("fact_strahovaya"), SubResource("fact_sum_40000"), SubResource("fact_zastrahovan"), SubResource("fact_telefon_primety"), SubResource("fact_na_stole"), SubResource("fact_otoshel"), SubResource("fact_portovaya"), SubResource("fact_barmen_yozef"), SubResource("fact_do_23"), SubResource("fact_taksi"), SubResource("fact_bez_spravki"), SubResource("fact_vsyo_strahuet"), SubResource("fact_yozef_primety"), SubResource("fact_chasto_v_bare"), SubResource("fact_chek"), SubResource("fact_nochyu"), SubResource("fact_dvor_zavodskaya"), SubResource("fact_izbili"), SubResource("fact_dvoe_troe"), SubResource("fact_nichego_ne_videl"), SubResource("fact_rebro"), SubResource("fact_bumazhnik"), SubResource("fact_okolo_1"), SubResource("fact_so_smeny"), SubResource("fact_u_garazhey"), SubResource("fact_fonar"), SubResource("fact_kak_bili"), SubResource("fact_molodye_golosa"), SubResource("fact_bumazhnik_primety"), SubResource("fact_sum_1500"), SubResource("fact_kartochka"), SubResource("fact_zablokirovana"), SubResource("fact_spravka_travm"), SubResource("fact_vremya_0050"), SubResource("fact_smena_polnoch"), SubResource("fact_podrostki")])
+visitors = Array[ExtResource("4_visitor")]([SubResource("visitor_irena"), SubResource("visitor_tomas"), SubResource("visitor_milan")])

@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/debug/clock_debug_panel.gd" id="1_panel"]
+
+[node name="ClockDebugPanel" type="PanelContainer"]
+offset_right = 780.0
+offset_bottom = 48.0
+script = ExtResource("1_panel")
+
+[node name="Row" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ClockLabel" type="Label" parent="Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "09:00"
+horizontal_alignment = 1
+
+[node name="TimeSlider" type="HSlider" parent="Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="QuestionButton" type="Button" parent="Row"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TripButton" type="Button" parent="Row"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ReshuffleWindowsButton" type="Button" parent="Row"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Новые окна"

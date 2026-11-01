@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="QuestionCatalog" format=3]
+
+[ext_resource type="Script" path="res://cases/data/question_catalog.gd" id="1_catalog"]
+[ext_resource type="Script" path="res://cases/data/question_template.gd" id="2_question"]
+[ext_resource type="Resource" path="res://cases/questions/more.tres" id="10_more"]
+[ext_resource type="Resource" path="res://cases/questions/time_exact.tres" id="11"]
+[ext_resource type="Resource" path="res://cases/questions/place_where.tres" id="12"]
+[ext_resource type="Resource" path="res://cases/questions/place_who.tres" id="13"]
+[ext_resource type="Resource" path="res://cases/questions/person_looks.tres" id="14"]
+[ext_resource type="Resource" path="res://cases/questions/person_know.tres" id="15"]
+[ext_resource type="Resource" path="res://cases/questions/item_looks.tres" id="16"]
+[ext_resource type="Resource" path="res://cases/questions/item_value.tres" id="17"]
+[ext_resource type="Resource" path="res://cases/questions/money_exact.tres" id="18"]
+[ext_resource type="Resource" path="res://cases/questions/event_how.tres" id="19"]
+[ext_resource type="Resource" path="res://cases/questions/event_who.tres" id="20"]
+[ext_resource type="Resource" path="res://cases/questions/sign_more.tres" id="21"]
+[ext_resource type="Resource" path="res://cases/questions/show_person.tres" id="22"]
+[ext_resource type="Resource" path="res://cases/questions/show_item.tres" id="23"]
+[ext_resource type="Resource" path="res://cases/questions/show_place.tres" id="24"]
+
+[resource]
+script = ExtResource("1_catalog")
+templates = Array[ExtResource("2_question")]([ExtResource("11"), ExtResource("12"), ExtResource("13"), ExtResource("14"), ExtResource("15"), ExtResource("16"), ExtResource("17"), ExtResource("18"), ExtResource("19"), ExtResource("20"), ExtResource("21"), ExtResource("22"), ExtResource("23"), ExtResource("24")])
+universal = ExtResource("10_more")

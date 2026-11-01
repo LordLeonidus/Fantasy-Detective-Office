@@ -1,0 +1,230 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://office/office_controller.gd" id="1_controller"]
+[ext_resource type="Script" path="res://office/view/time_of_day_layer.gd" id="2_layer"]
+[ext_resource type="Script" path="res://office/view/time_of_day_presenter.gd" id="3_presenter"]
+[ext_resource type="Shader" path="res://office/view/crossfade.gdshader" id="5_shader"]
+[ext_resource type="Resource" path="res://office/time_of_day/office_cycle.tres" id="6_cycle"]
+[ext_resource type="PackedScene" path="res://ui/debug/clock_debug_panel.tscn" id="7_panel"]
+[ext_resource type="Texture2D" path="res://office/art/room/office_room_morning.png" id="10_room_morning"]
+[ext_resource type="Texture2D" path="res://office/art/room/office_room_day.png" id="11_room_day"]
+[ext_resource type="Texture2D" path="res://office/art/room/office_room_sunset.png" id="12_room_sunset"]
+[ext_resource type="Texture2D" path="res://office/art/room/office_room_dusk.png" id="13_room_dusk"]
+[ext_resource type="Texture2D" path="res://office/art/room/office_room_night.png" id="14_room_night"]
+[ext_resource type="Texture2D" path="res://office/art/desk/office_desk_morning.png" id="20_desk_morning"]
+[ext_resource type="Texture2D" path="res://office/art/desk/office_desk_day.png" id="21_desk_day"]
+[ext_resource type="Texture2D" path="res://office/art/desk/office_desk_sunset.png" id="22_desk_sunset"]
+[ext_resource type="Texture2D" path="res://office/art/desk/office_desk_dusk.png" id="23_desk_dusk"]
+[ext_resource type="Texture2D" path="res://office/art/desk/office_desk_night.png" id="24_desk_night"]
+[ext_resource type="Script" path="res://office/view/window_lights_layer.gd" id="30_windows_layer"]
+[ext_resource type="Shader" path="res://office/view/window_lights.gdshader" id="31_windows_shader"]
+[ext_resource type="Resource" path="res://office/time_of_day/office_window_lights.tres" id="32_windows_schedule"]
+[ext_resource type="Texture2D" path="res://office/art/window_lights/window_lights_color.png" id="33_windows_color"]
+[ext_resource type="Texture2D" path="res://office/art/window_lights/window_lights_id.png" id="34_windows_id"]
+[ext_resource type="Script" path="res://office/view/visitor_view.gd" id="40_visitor_view"]
+[ext_resource type="Script" path="res://reception/view/reception_presenter.gd" id="41_reception_presenter"]
+[ext_resource type="PackedScene" path="res://ui/reception/notebook_panel.tscn" id="42_notebook_panel"]
+[ext_resource type="PackedScene" path="res://ui/reception/speech_panel.tscn" id="43_speech_panel"]
+[ext_resource type="PackedScene" path="res://ui/reception/decision_panel.tscn" id="44_decision_panel"]
+[ext_resource type="Resource" path="res://cases/test_day/test_day.tres" id="45_test_day"]
+[ext_resource type="Resource" path="res://reception/reception_rules.tres" id="46_reception_rules"]
+[ext_resource type="Script" path="res://office/view/desk_item.gd" id="47_desk_item"]
+[ext_resource type="PackedScene" path="res://ui/desk/closeup_panel.tscn" id="48_closeup"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_room"]
+shader = ExtResource("5_shader")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_desk"]
+shader = ExtResource("5_shader")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_windows"]
+shader = ExtResource("31_windows_shader")
+shader_parameter/light_color = ExtResource("33_windows_color")
+shader_parameter/window_ids = ExtResource("34_windows_id")
+
+[node name="Office" type="Control" node_paths=PackedStringArray("time_of_day", "reception_presenter", "clock_debug_panel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_controller")
+time_of_day = NodePath("TimeOfDay")
+reception_presenter = NodePath("Reception")
+clock_debug_panel = NodePath("ClockDebugPanel")
+reception_day = ExtResource("45_test_day")
+reception_rules = ExtResource("46_reception_rules")
+
+[node name="Room" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_room")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("11_room_day")
+expand_mode = 1
+script = ExtResource("2_layer")
+textures = Array[Texture2D]([ExtResource("10_room_morning"), ExtResource("11_room_day"), ExtResource("12_room_sunset"), ExtResource("13_room_dusk"), ExtResource("14_room_night")])
+
+[node name="WindowLights" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_windows")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("33_windows_color")
+expand_mode = 1
+script = ExtResource("30_windows_layer")
+
+[node name="Visitor" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 758.0
+offset_top = 172.0
+offset_right = 1205.0
+offset_bottom = 842.0
+pivot_offset = Vector2(223.5, 545)
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("40_visitor_view")
+
+[node name="Desk" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_desk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("21_desk_day")
+expand_mode = 1
+script = ExtResource("2_layer")
+textures = Array[Texture2D]([ExtResource("20_desk_morning"), ExtResource("21_desk_day"), ExtResource("22_desk_sunset"), ExtResource("23_desk_dusk"), ExtResource("24_desk_night")])
+
+[node name="TimeOfDay" type="Node" parent="." node_paths=PackedStringArray("room_layer", "desk_layer", "window_lights")]
+script = ExtResource("3_presenter")
+cycle = ExtResource("6_cycle")
+room_layer = NodePath("../Room")
+desk_layer = NodePath("../Desk")
+window_lights = NodePath("../WindowLights")
+window_lights_schedule = ExtResource("32_windows_schedule")
+
+[node name="DeskItems" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="CaseFolders" type="Button" parent="DeskItems" node_paths=PackedStringArray("closeup")]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 930.0
+offset_right = 820.0
+offset_bottom = 1000.0
+script = ExtResource("47_desk_item")
+closeup = NodePath("../../CloseupPanel")
+title = "Папки дел"
+placeholder_body = "Здесь будут принятые заявления — по папке на дело. Появятся в следующей части этапа."
+
+[node name="Phone" type="Button" parent="DeskItems" node_paths=PackedStringArray("closeup")]
+layout_mode = 0
+offset_left = 840.0
+offset_top = 930.0
+offset_right = 1000.0
+offset_bottom = 1000.0
+script = ExtResource("47_desk_item")
+closeup = NodePath("../../CloseupPanel")
+title = "Телефон"
+placeholder_body = "Поручения отделам: техотдел, опера, запросы в организации. Появятся в следующей части этапа."
+
+[node name="CardIndex" type="Button" parent="DeskItems" node_paths=PackedStringArray("closeup")]
+layout_mode = 0
+offset_left = 1020.0
+offset_top = 930.0
+offset_right = 1180.0
+offset_bottom = 1000.0
+script = ExtResource("47_desk_item")
+closeup = NodePath("../../CloseupPanel")
+title = "Картотека"
+placeholder_body = "Карточки жителей района с поиском по имени, адресу и приметам. Появится в следующей части этапа."
+
+[node name="Memo" type="Button" parent="DeskItems" node_paths=PackedStringArray("closeup")]
+layout_mode = 0
+offset_left = 1200.0
+offset_top = 930.0
+offset_right = 1340.0
+offset_bottom = 1000.0
+script = ExtResource("47_desk_item")
+closeup = NodePath("../../CloseupPanel")
+title = "Памятка"
+placeholder_body = "Кража: от 2 500 — уголовное дело, меньше — административное. Регистрировать на усмотрение следователя.
+
+Грабёж, побои средней тяжести и тяжелее, пропажа человека: регистрировать обязательно. Отказ или попытка отговорить — жалоба и выговор.
+
+Справка о принятом заявлении выдаётся только по принятому заявлению.
+
+Камеры в городе: автобусы маршрутов 3 и 7; банкомат у рынка. Записи хранятся 3 дня."
+
+[node name="Inbox" type="Button" parent="DeskItems" node_paths=PackedStringArray("closeup")]
+layout_mode = 0
+offset_left = 1360.0
+offset_top = 930.0
+offset_right = 1480.0
+offset_bottom = 1000.0
+script = ExtResource("47_desk_item")
+closeup = NodePath("../../CloseupPanel")
+title = "Входящие"
+placeholder_body = "Утром здесь будут результаты поручений."
+
+[node name="NotebookPanel" parent="." instance=ExtResource("42_notebook_panel")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 340.0
+offset_right = 456.0
+offset_bottom = 1000.0
+
+[node name="SpeechPanel" parent="." instance=ExtResource("43_speech_panel")]
+layout_mode = 0
+offset_left = 620.0
+offset_top = 590.0
+offset_right = 1360.0
+offset_bottom = 780.0
+
+[node name="DecisionPanel" parent="." instance=ExtResource("44_decision_panel")]
+layout_mode = 0
+offset_left = 1500.0
+offset_top = 880.0
+offset_right = 1904.0
+offset_bottom = 1064.0
+
+[node name="CloseupPanel" parent="." instance=ExtResource("48_closeup")]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 110.0
+offset_right = 1460.0
+offset_bottom = 900.0
+
+[node name="ClockDebugPanel" parent="." instance=ExtResource("7_panel")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -470.0
+offset_top = 16.0
+offset_right = 470.0
+offset_bottom = 64.0
+grow_horizontal = 2
+
+[node name="Reception" type="Node" parent="." node_paths=PackedStringArray("visitor_view", "speech_panel", "notebook_panel", "decision_panel")]
+script = ExtResource("41_reception_presenter")
+visitor_view = NodePath("../Visitor")
+speech_panel = NodePath("../SpeechPanel")
+notebook_panel = NodePath("../NotebookPanel")
+decision_panel = NodePath("../DecisionPanel")

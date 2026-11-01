@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ReceptionRules" format=3]
+
+[ext_resource type="Script" path="res://reception/reception_rules.gd" id="1_rules"]
+[ext_resource type="Resource" path="res://cases/questions/question_catalog.tres" id="2_catalog"]
+
+[resource]
+script = ExtResource("1_rules")
+question_minutes = 10
+retell_minutes = 0
+question_catalog = ExtResource("2_catalog")

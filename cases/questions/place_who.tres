@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="QuestionTemplate" format=3]
+
+[ext_resource type="Script" path="res://cases/data/question_template.gd" id="1_question"]
+
+[resource]
+script = ExtResource("1_question")
+id = &"place_who"
+text = "Кто там был рядом?"
+scope = 0
+kinds = PackedInt32Array(1)

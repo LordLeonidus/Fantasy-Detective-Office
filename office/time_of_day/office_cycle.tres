@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="TimeOfDayCycle" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://office/time_of_day/time_of_day_cycle.gd" id="1_cycle"]
+
+[resource]
+script = ExtResource("1_cycle")
+keyframe_minutes = PackedInt32Array(510, 750, 1020, 1110, 1260)
