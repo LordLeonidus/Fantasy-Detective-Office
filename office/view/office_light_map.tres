@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LightMap" format=3]
+
+[ext_resource type="Script" path="res://office/view/light_map.gd" id="1_script"]
+[ext_resource type="Material" path="res://office/view/light_map_material.tres" id="2_material"]
+[ext_resource type="Texture2D" path="res://office/art/light_maps/light_map_morning.png" id="3_morning"]
+[ext_resource type="Texture2D" path="res://office/art/light_maps/light_map_day.png" id="4_day"]
+[ext_resource type="Texture2D" path="res://office/art/light_maps/light_map_sunset.png" id="5_sunset"]
+[ext_resource type="Texture2D" path="res://office/art/light_maps/light_map_dusk.png" id="6_dusk"]
+[ext_resource type="Texture2D" path="res://office/art/light_maps/light_map_night.png" id="7_night"]
+
+[resource]
+script = ExtResource("1_script")
+maps = Array[Texture2D]([ExtResource("3_morning"), ExtResource("4_day"), ExtResource("5_sunset"), ExtResource("6_dusk"), ExtResource("7_night")])
+material = ExtResource("2_material")

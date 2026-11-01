@@ -1,12 +1,14 @@
 class_name TimeOfDayPresenter
 extends Node
-## Показывает время суток в кабинете: по часам `GameClock` смешивает состояния слоёв
-## и зажигает окна в домах за окном. Продвижение часов показывается плавным переходом,
-## выставленное напрямую время — сразу.
+## Показывает время суток в кабинете: по часам `GameClock` смешивает состояния слоёв,
+## освещает спрайты поверх комнаты картой света и зажигает окна в домах за окном.
+## Продвижение часов показывается плавным переходом, выставленное напрямую время — сразу.
 
 @export var cycle: TimeOfDayCycle
-@export var room_layer: TimeOfDayLayer
-@export var desk_layer: TimeOfDayLayer
+## Слои с картинкой на каждое состояние: небо, город, комната, стол.
+@export var layers: Array[TimeOfDayLayer] = []
+## Свет комнаты для посетителя, предметов и тюля.
+@export var light_map: LightMap
 @export var window_lights: WindowLightsLayer
 @export var window_lights_schedule: WindowLightsSchedule
 ## За сколько секунд свет догоняет продвинувшиеся часы.
@@ -19,7 +21,12 @@ var _tween: Tween
 func _ready() -> void:
 	assert(cycle != null, "%s: не назначен цикл времени суток" % name)
 	assert(window_lights_schedule != null, "%s: не назначено расписание окон" % name)
-	for layer: TimeOfDayLayer in [room_layer, desk_layer]:
+	assert(light_map != null, "%s: не назначена карта света" % name)
+	assert(
+		light_map.get_state_count() == cycle.get_keyframe_count(),
+		"%s: карт света не столько, сколько ключевых кадров" % name
+	)
+	for layer: TimeOfDayLayer in layers:
 		assert(
 			layer.get_state_count() == cycle.get_keyframe_count(),
 			"%s: картинок в слое %s не столько, сколько ключевых кадров" % [name, layer.name]
@@ -60,6 +67,7 @@ func _stop_transition() -> void:
 func _show_minute(minute: float) -> void:
 	_shown_minute = minute
 	var blend: TimeOfDayBlend = cycle.blend_at(minute)
-	room_layer.show_blend(blend)
-	desk_layer.show_blend(blend)
+	for layer: TimeOfDayLayer in layers:
+		layer.show_blend(blend)
+	light_map.show_blend(blend)
 	window_lights.show_lit_fraction(window_lights_schedule.lit_fraction_at(minute))

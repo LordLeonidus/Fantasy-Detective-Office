@@ -9,8 +9,8 @@
 | `core/time/` | `GameClock` — игровые часы: минута дня, продвижение действиями и прямая установка |
 | `office/` | `office.tscn` — сцена кабинета, `OfficeController` — собирает кабинет |
 | `office/time_of_day/` | Время суток без представления: `TimeOfDayCycle` (ключевые кадры и смесь соседних), `TimeOfDayBlend` (какие два состояния и в какой доле), `WindowLightsSchedule` (доля горящих окон в домах по кривой на сутки); данные — `office_cycle.tres`, `office_window_lights.tres` |
-| `office/view/` | Представление кабинета: `TimeOfDayLayer` (слой с картинкой на каждое состояние) и шейдер `crossfade.gdshader`, `WindowLightsLayer` (горящие окна в домах) и шейдер `window_lights.gdshader`, `TimeOfDayPresenter` (показывает часы светом) |
-| `office/art/` | Картинки кабинета: `room/` — комната целиком, окна в домах тёмные; `desk/` — стол отдельным слоем (прозрачный выше строки 648); по одной на состояние: morning, day, sunset, dusk, night. `window_lights/` — огни окон: `window_lights_color.png` (цвет, альфа — маска) и `window_lights_id.png` (номер окна в красном канале) |
+| `office/view/` | Представление кабинета: `TimeOfDayLayer` (слой с картинкой на каждое состояние) и шейдер `crossfade.gdshader`, `WindowLightsLayer` (горящие окна в домах) и шейдер `window_lights.gdshader`, `LightMap` (карты света по состояниям и общий материал освещённых спрайтов; данные — `office_light_map.tres`, материал — `light_map_material.tres` с шейдером `light_map.gdshader`), `TimeOfDayPresenter` (показывает часы светом) |
+| `office/art/` | Картинки кабинета, по одной на состояние (morning, day, sunset, dusk, night): `sky/` и `city/` — небо и город, только кусок под окном (208×385, в сцене на месте окна), у города небо прозрачное, окна домов тёмные; `room/` — оболочка комнаты (стены, пол, дверь, рама окна, шторы, стол), стёкла окна прозрачные; `desk/` — стол отдельным слоем (прозрачный выше строки 647); `light_maps/` — карты света 96×54. Одной картинкой при ровном свете: `props/` — тюль и предметы комнаты. `window_lights/` — огни окон в координатах куска под окном: `window_lights_color.png` (цвет, альфа — маска) и `window_lights_id.png` (номер окна в красном канале) |
 | `core/input/` | `InputActions` — имена действий ввода |
 | `cases/data/` | Типы содержания дел: `FactDefinition` (факт за смысловой фразой: тип — время, место, человек, вещь, деньги, событие, примета человека, прочее; запись для блокнота; свои вопросы к факту), `QuestionTemplate` (готовый вопрос: к каким типам фактов подходит, кому задаётся — тому, кто сказал, или другому), `QuestionCatalog` (все вопросы по типам плюс универсальный), `KnowledgeEntry` (строка таблицы знаний: факт + вопрос → ответ), `VisitorDefinition` (посетитель: рассказ, таблица знаний, ответы «нечего сказать», реакции на решения), `ReceptionDayDefinition` (факты дня и очередь, проверка содержания) |
 | `cases/questions/` | Вопросы по типам фактов и каталог `question_catalog.tres` |
@@ -22,7 +22,7 @@
 | `ui/reception/` | Панели приёма: `SpeechPanel` (плашка с последней репликой посетителя поверх него, кнопка «Расскажите с начала»), `NotebookPanel` (раскрытый блокнот: записи по страницам людей, выбор записи, вопросы к ней, крестик у незакреплённых), `DecisionPanel` (выпадающий список решений, «Оформить», позвать следующего, сколько в коридоре), `SpeechFormatter` (реплика в BBCode: фразы — ссылки с идентификатором факта, записанные подчёркнуты и выделены цветом) |
 | `ui/desk/` | `CloseupPanel` — крупный план предмета со стола |
 | `ui/debug/` | `ClockDebugPanel` — отладочная панель часов |
-| `tools/art/` | Скрипты подготовки арта вне игры: `extract_window_lights.ps1` — достаёт огни окон из пары кадров «с огнями / без огней» |
+| `tools/art/` | Скрипты подготовки арта вне игры: `extract_window_lights.ps1` — достаёт огни окон из пары кадров «с огнями / без огней»; `make_light_maps.ps1` — карты света из собранных кадров состояний и дневного кадра |
 
 ## Логика и представление
 
@@ -31,8 +31,9 @@
   - `TimeOfDayCycle.blend_at(минута)` отдаёт два соседних состояния и долю второго. Между ключевыми кадрами доля сглажена (`smoothstep`).
   - `WindowLightsSchedule.lit_fraction_at(минута)` отдаёт долю горящих окон по кривой (ось X — доля суток).
 - **Представление** только слушает часы:
-  - `TimeOfDayPresenter` на `time_advanced` плавно догоняет новое время за `transition_duration`, на `time_set` показывает сразу. На каждом шаге раздаёт смесь слоям и долю горящих окон слою огней.
+  - `TimeOfDayPresenter` на `time_advanced` плавно догоняет новое время за `transition_duration`, на `time_set` показывает сразу. На каждом шаге раздаёт смесь слоям `layers` (небо, город, комната, стол) и карте света `LightMap`, долю горящих окон — слою огней.
   - `TimeOfDayLayer` передаёт две картинки и долю в шейдер `crossfade.gdshader`. Собственная текстура узла задаёт только размер.
+  - `LightMap` выставляет две карты и долю в общий материал `light_map_material.tres`. Его используют все освещённые спрайты (тюль, предметы комнаты, посетитель), поэтому смесь выставляется один раз на всех. Шейдер `light_map.gdshader` берёт карту по положению пикселя в сцене (1920×1080), а не по UV спрайта, и умножает на неё цвет; значение карты записано делённым на 2.
   - `WindowLightsLayer` передаёт долю горящих окон и зерно узора в `window_lights.gdshader`. Шейдер по номеру окна и зерну считает случайный порог: окно горит, когда доля выше порога. Время двигается плавно, поэтому окна вспыхивают по одному. Новое зерно (`reshuffle`) — другой набор и порядок окон.
 
 ## Приём
@@ -51,11 +52,14 @@
 
 ## Порядок слоёв кабинета
 
-Снизу вверх, как в `office.tscn`: `Room` → `WindowLights` → `Visitor` → `Desk` → `DeskItems` → `NotebookPanel`, `SpeechPanel`, `DecisionPanel` → `CloseupPanel` → `ClockDebugPanel`.
+Снизу вверх, как в `office.tscn`: `Sky` → `City` → `WindowLights` → `OutsideLife` → `Room` → `Tulle` → `RoomProps` → `Visitor` → `Desk` → `DeskItems` → `NotebookPanel`, `SpeechPanel`, `DecisionPanel` → `CloseupPanel` → `ClockDebugPanel`.
+
+- `Sky`, `City`, `WindowLights` и `OutsideLife` стоят на месте окна (0, 0 — 239, 442 в сцене). `OutsideLife` — пустой узел с обрезкой по краям для того, что пролетает за окном; его видно сквозь вырезанные стёкла `Room`.
+- `Tulle`, предметы в `RoomProps` (карта, грамота, полка, тумба, шар, стул) и `Visitor` используют общий материал карты света. Предметы — отдельные `TextureRect`, расставлены вручную в сцене; заменить или убрать предмет — правка сцены, код не нужен.
 
 ## Связи
 
 - `OfficeController` — корень сцены. В `_ready` создаёт `GameClock` с `day_start_minute`, `Notebook`, `Reception` (день и правила — `@export`) и генератор случайных чисел, перемешивает узор окон и раздаёт: часы — `TimeOfDayPresenter.bind` и `ClockDebugPanel.bind`, приём и блокнот — `ReceptionPresenter.bind`. Корень получает `_ready` последним, поэтому слои уже готовы.
 - `ClockDebugPanel` сигналом `window_lights_reshuffle_requested` просит новый узор окон, `OfficeController` передаёт это в `TimeOfDayPresenter.reshuffle_window_lights`. Когда появятся игровые дни, узор будет перемешиваться в начале каждого дня.
 - Зависимости на узлы сцены — `@export`-поля, назначенные в `office.tscn`. Узлы внутри своей сцены — через `%UniqueName` (так `ClockDebugPanel` находит свои кнопки и ползунок).
-- Порядок картинок в `TimeOfDayLayer.textures` совпадает с порядком `TimeOfDayCycle.keyframe_minutes`. `TimeOfDayPresenter` проверяет совпадение количества при запуске.
+- Порядок картинок в `TimeOfDayLayer.textures` и карт в `LightMap.maps` совпадает с порядком `TimeOfDayCycle.keyframe_minutes`. `TimeOfDayPresenter` проверяет совпадение количества при запуске.
