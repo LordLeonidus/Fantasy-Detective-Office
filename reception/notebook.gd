@@ -1,25 +1,26 @@
 class_name Notebook
 extends RefCounted
-## Блокнот следователя: записи по фактам в порядке записи. Каждый факт записывается один раз;
+## Блокнот дознавателя: записи по фактам в порядке записи — со слов посетителей и из бумаг
+## (результаты отделов, картотека, вводные сверху). Каждый факт записывается один раз;
 ## повторный клик по той же фразе убирает запись. Закреплённые записи убрать нельзя.
 
 signal entry_added(entry: NotebookEntry)
 signal entry_removed(entry: NotebookEntry)
 ## Записи с чьих-то слов закрепились.
-signal entries_fixed(source: VisitorDefinition)
+signal entries_fixed(source: SpeakerDefinition)
 
 var _entries: Array[NotebookEntry] = []
 
 
 ## Записать фразу, если её нет, или убрать, если она уже записана и не закреплена.
-func toggle(fact: FactDefinition, source: VisitorDefinition) -> void:
+func toggle(fact: FactDefinition, source: SpeakerDefinition) -> void:
 	if has(fact.id):
 		remove(fact.id)
 	else:
 		add(fact, source)
 
 
-func add(fact: FactDefinition, source: VisitorDefinition) -> void:
+func add(fact: FactDefinition, source: SpeakerDefinition) -> void:
 	if has(fact.id):
 		return
 	var entry: NotebookEntry = NotebookEntry.new(fact, source)
@@ -37,7 +38,7 @@ func remove(fact_id: StringName) -> void:
 
 
 ## Закрепить все записи со слов человека.
-func fix_entries_from(source: VisitorDefinition) -> void:
+func fix_entries_from(source: SpeakerDefinition) -> void:
 	for entry: NotebookEntry in get_entries_from(source):
 		entry.is_fixed = true
 	entries_fixed.emit(source)
@@ -56,7 +57,7 @@ func has(fact_id: StringName) -> bool:
 
 
 ## Записи со слов человека в порядке записи.
-func get_entries_from(source: VisitorDefinition) -> Array[NotebookEntry]:
+func get_entries_from(source: SpeakerDefinition) -> Array[NotebookEntry]:
 	var entries: Array[NotebookEntry] = []
 	for entry: NotebookEntry in _entries:
 		if entry.source == source:

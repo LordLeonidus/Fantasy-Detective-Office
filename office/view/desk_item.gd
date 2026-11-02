@@ -1,17 +1,20 @@
 class_name DeskItem
 extends Button
-## Предмет на столе. Клик открывает его крупным планом в `CloseupPanel`. Пока заглушка:
-## у предмета есть название и текст-описание, настоящий спрайт и начинка появятся позже.
+## Предмет на столе. Клик открывает или закрывает его крупный план `view`. Пока кнопка-заглушка:
+## настоящий спрайт появится позже. Счётчик (`set_badge`) показывает, сколько нового, например
+## непрочитанных бумаг во входящих.
 
-@export var closeup: CloseupPanel
+const BADGE_TEXT := "%s (%d)"
+
+@export var view: CloseupView
 @export var title: String
-@export_multiline var placeholder_body: String
 
 
 func _ready() -> void:
 	text = title
-	pressed.connect(_on_pressed)
+	pressed.connect(view.toggle)
 
 
-func _on_pressed() -> void:
-	closeup.toggle(self, title, placeholder_body)
+## Показать число рядом с названием; 0 — без числа.
+func set_badge(count: int) -> void:
+	text = BADGE_TEXT % [title, count] if count > 0 else title

@@ -6,7 +6,7 @@ extends PanelContainer
 ## Кнопка «Расскажите с начала» возвращает на плашку первый рассказ посетителя.
 
 ## Игрок кликнул по смысловой фразе.
-signal phrase_clicked(fact: FactDefinition, speaker: VisitorDefinition)
+signal phrase_clicked(fact: FactDefinition, speaker: SpeakerDefinition)
 ## Игрок просит рассказать всё с начала.
 signal retell_requested
 

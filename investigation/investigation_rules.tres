@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InvestigationRules" format=3]
+
+[ext_resource type="Script" path="res://investigation/investigation_rules.gd" id="1_rules"]
+
+[resource]
+script = ExtResource("1_rules")
+day_start_minute = 540
+day_end_minute = 1080
+start_money = 20

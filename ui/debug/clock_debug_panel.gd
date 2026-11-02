@@ -10,7 +10,7 @@ const QUESTION_BUTTON_TEXT := "Вопрос +%d мин"
 const TRIP_BUTTON_TEXT := "Выезд +%d мин"
 
 ## На сколько минут продвигает кнопка «вопрос».
-@export var question_minutes: int = 10
+@export var question_minutes: int = 3
 ## На сколько минут продвигает кнопка «выезд».
 @export var trip_minutes: int = 60
 ## Границы ползунка, минуты от полуночи.

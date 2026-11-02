@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DepartmentDefinition" format=3]
+
+[ext_resource type="Script" path="res://cases/data/department_definition.gd" id="1_department"]
+[ext_resource type="Script" path="res://cases/data/department_action.gd" id="2_action"]
+[ext_resource type="Resource" path="res://investigation/departments/arrest.tres" id="3_arrest"]
+
+[resource]
+script = ExtResource("1_department")
+id = &"opers"
+display_name = "Оперы"
+actions = Array[ExtResource("2_action")]([ExtResource("3_arrest")])

@@ -10,12 +10,12 @@ static var _phrase_regex: RegEx
 
 
 ## Куски реплики по порядку. Фраза с неизвестным фактом становится обычным текстом.
-static func parse(markup: String, day: ReceptionDayDefinition) -> Array[SpeechChunk]:
+static func parse(markup: String, scenario: ScenarioDefinition) -> Array[SpeechChunk]:
 	var chunks: Array[SpeechChunk] = []
 	var cursor: int = 0
 	for found: RegExMatch in _get_phrase_regex().search_all(markup):
 		_append_plain(chunks, markup.substr(cursor, found.get_start() - cursor))
-		var fact: FactDefinition = day.find_fact(StringName(found.get_string(2)))
+		var fact: FactDefinition = scenario.find_fact(StringName(found.get_string(2)))
 		if fact != null:
 			chunks.append(SpeechChunk.new(found.get_string(1), fact))
 		else:

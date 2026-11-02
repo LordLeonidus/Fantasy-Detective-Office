@@ -1,6 +1,18 @@
-[gd_resource type="Resource" script_class="ReceptionDayDefinition" format=3]
+[gd_resource type="Resource" script_class="ScenarioDefinition" format=3]
 
-[ext_resource type="Script" path="res://cases/data/reception_day_definition.gd" id="1_day"]
+[ext_resource type="Script" path="res://cases/data/scenario_definition.gd" id="1_day"]
+[ext_resource type="Script" path="res://cases/data/speaker_definition.gd" id="6_speaker"]
+[ext_resource type="Script" path="res://cases/data/case_definition.gd" id="7_case"]
+[ext_resource type="Script" path="res://cases/data/scheduled_case.gd" id="8_scheduled"]
+[ext_resource type="Script" path="res://cases/data/order_outcome.gd" id="9_outcome"]
+[ext_resource type="Script" path="res://cases/data/person_record.gd" id="10_record"]
+[ext_resource type="Script" path="res://cases/data/department_definition.gd" id="11_department"]
+[ext_resource type="Resource" path="res://cases/questions/more.tres" id="q_more"]
+[ext_resource type="Resource" path="res://investigation/departments/alchemist.tres" id="30_alchemist"]
+[ext_resource type="Resource" path="res://investigation/departments/opers.tres" id="31_opers"]
+[ext_resource type="Resource" path="res://investigation/departments/analysis.tres" id="32_analysis"]
+[ext_resource type="Resource" path="res://investigation/departments/raise_dead_potion.tres" id="33_potion"]
+[ext_resource type="Resource" path="res://investigation/departments/arrest.tres" id="34_arrest"]
 [ext_resource type="Script" path="res://cases/data/fact_definition.gd" id="2_fact"]
 [ext_resource type="Script" path="res://cases/data/knowledge_entry.gd" id="3_entry"]
 [ext_resource type="Script" path="res://cases/data/visitor_definition.gd" id="4_visitor"]
@@ -734,14 +746,293 @@ fact = SubResource("fact_molodye_golosa")
 question = ExtResource("q_smore")
 answer = "[Ржали они. Сопляки совсем, лет по шестнадцать|podrostki]."
 
+[sub_resource type="Resource" id="fact_volos"]
+script = ExtResource("2_fact")
+id = &"volos"
+kind = 3
+note = "в корзинке застрял рыжий волос"
+
+[sub_resource type="Resource" id="fact_volos_polurosl"]
+script = ExtResource("2_fact")
+id = &"volos_polurosl"
+kind = 6
+note = "волос — полурослика, рыжего, лет двадцати пяти"
+
+[sub_resource type="Resource" id="fact_petra"]
+script = ExtResource("2_fact")
+id = &"petra"
+kind = 2
+note = "Петра Новак — полурослица, карманница"
+
+[sub_resource type="Resource" id="fact_lida"]
+script = ExtResource("2_fact")
+id = &"lida"
+kind = 2
+note = "Лида Сокол — рыжая торговка с рынка"
+
+[sub_resource type="Resource" id="fact_koshel_nayden"]
+script = ExtResource("2_fact")
+id = &"koshel_nayden"
+kind = 3
+note = "у Петры нашли кошель, вышитый зелёным листом"
+
+[sub_resource type="Resource" id="fact_tomas_card"]
+script = ExtResource("2_fact")
+id = &"tomas_card"
+kind = 2
+note = "Томаш Белик — маг-писарь гильдии"
+
+[sub_resource type="Resource" id="fact_grimuar"]
+script = ExtResource("2_fact")
+id = &"grimuar"
+kind = 7
+note = "Белик год назад заявлял о краже казённого гримуара, не нашли"
+
+[sub_resource type="Resource" id="fact_kamen_poteryal"]
+script = ExtResource("2_fact")
+id = &"kamen_poteryal"
+kind = 5
+note = "Белик потерял камень сам, дома"
+
+[sub_resource type="Resource" id="fact_zapah"]
+script = ExtResource("2_fact")
+id = &"zapah"
+kind = 6
+note = "от нападавших несло дубильными чанами"
+
+[sub_resource type="Resource" id="fact_marek"]
+script = ExtResource("2_fact")
+id = &"marek"
+kind = 2
+note = "Марек Хорват — подмастерье кожевника, приводы за драки"
+
+[sub_resource type="Resource" id="fact_yan"]
+script = ExtResource("2_fact")
+id = &"yan"
+kind = 2
+note = "Ян Ласло — сын кожевника"
+
+[sub_resource type="Resource" id="fact_tryapka"]
+script = ExtResource("2_fact")
+id = &"tryapka"
+kind = 3
+note = "у сараев за кожевней нашли тряпку в бурых пятнах"
+
+[sub_resource type="Resource" id="fact_rastvor"]
+script = ExtResource("2_fact")
+id = &"rastvor"
+kind = 6
+note = "пятна на тряпке — дубильный раствор с кожевни Ласло"
+
+[sub_resource type="Resource" id="fact_sunduk"]
+script = ExtResource("2_fact")
+id = &"sunduk"
+kind = 3
+note = "из меняльной конторы пропал сундук с серебром"
+
+[sub_resource type="Resource" id="fact_storozh"]
+script = ExtResource("2_fact")
+id = &"storozh"
+kind = 2
+note = "ночной сторож конторы мёртв, ран нет"
+
+[sub_resource type="Resource" id="fact_sliz"]
+script = ExtResource("2_fact")
+id = &"sliz"
+kind = 3
+note = "на полу конторы зелёная слизь"
+
+[sub_resource type="Resource" id="fact_sliz_mimik"]
+script = ExtResource("2_fact")
+id = &"sliz_mimik"
+kind = 6
+note = "слизь в конторе — от ручного мимика"
+
+[sub_resource type="Resource" id="fact_sunduk_ushel"]
+script = ExtResource("2_fact")
+id = &"sunduk_ushel"
+kind = 5
+note = "сторож: сундук «встал на ножки и сам ушёл»"
+
+[sub_resource type="Resource" id="fact_zdenek"]
+script = ExtResource("2_fact")
+id = &"zdenek"
+kind = 2
+note = "Зденек Ружичка — лавка редкостей на Сырной"
+
+[sub_resource type="Resource" id="fact_mimik_razreshenie"]
+script = ExtResource("2_fact")
+id = &"mimik_razreshenie"
+kind = 7
+note = "у Зденека разрешение держать ручных мимиков"
+
+[sub_resource type="Resource" id="e_irena_19"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_korzinka")
+question = ExtResource("q_more")
+answer = "Всё в ней перерыто. [В плетёнке рыжий волос застрял, длинный|volos]. Не мой, я-то седая."
+
+[sub_resource type="Resource" id="e_milan_14"]
+script = ExtResource("3_entry")
+fact = SubResource("fact_podrostki")
+question = ExtResource("q_smore")
+answer = "[И несло от них кислятиной, как от дубильных чанов|zapah]. Ни с чем не спутаешь."
+
+[sub_resource type="Resource" id="speaker_command"]
+script = ExtResource("6_speaker")
+id = &"command"
+display_name = "Капитан стражи"
+
+[sub_resource type="Resource" id="speaker_card_index"]
+script = ExtResource("6_speaker")
+id = &"card_index"
+display_name = "Картотека"
+
+[sub_resource type="Resource" id="case_irena"]
+script = ExtResource("7_case")
+id = &"case_irena"
+title = "Кража на пароме"
+summary = "У травницы Ирены Ковач на пароме украли кошель с 31 серебряным."
+reward = 15
+
+[sub_resource type="Resource" id="case_tomas"]
+script = ExtResource("7_case")
+id = &"case_tomas"
+title = "Кража переговорного камня"
+summary = "Маг-писарь Томаш Белик заявляет, что в таверне «Пьяный грифон» украли казённый переговорный камень."
+reward = 10
+
+[sub_resource type="Resource" id="case_dubilnaya_above"]
+script = ExtResource("7_case")
+id = &"case_dubilnaya_above"
+title = "Ночные грабежи на Дубильной"
+summary = "На Дубильной ночью грабят прохожих, второй случай за неделю."
+reward = 25
+briefing = "На Дубильной ночью снова избили и обобрали прохожего, второго за неделю. Свидетелей нет. [У сараев за кожевней нашли тряпку в бурых пятнах|tryapka]. Найдите, кто это."
+
+[sub_resource type="Resource" id="case_milan"]
+script = ExtResource("7_case")
+id = &"case_milan"
+title = "Грабёж на Дубильной"
+summary = "Караульщика Милана Горака ночью избили и ограбили во дворе за кожевней на Дубильной, 12."
+reward = 15
+escalation = SubResource("case_dubilnaya_above")
+escalation_delay_days = 1
+
+[sub_resource type="Resource" id="case_bank"]
+script = ExtResource("7_case")
+id = &"case_bank"
+title = "Ограбление меняльной конторы"
+summary = "Ночью из меняльной конторы Гольдмана на Сырной пропал сундук с серебром, ночной сторож мёртв."
+reward = 40
+briefing = "Ночью обчистили меняльную контору Гольдмана на Сырной улице: [пропал сундук с серебром|sunduk]. Дверь цела, замки целы. [Ночной сторож мёртв, ран на нём нет|storozh]. [На полу у стойки — лужица зелёной слизи|sliz]. Гольдман уже дважды заходил к бургомистру. Разберитесь."
+
+[sub_resource type="Resource" id="scheduled_bank"]
+script = ExtResource("8_scheduled")
+case_definition = SubResource("case_bank")
+day = 2
+
+[sub_resource type="Resource" id="outcome_volos"]
+script = ExtResource("9_outcome")
+action = ExtResource("32_analysis")
+fact = SubResource("fact_volos")
+result = "Волос не человеческий: [полурослик, рыжий, лет двадцати пяти|volos_polurosl]. Полурослики ростом взрослому человеку по плечо и обуви не носят."
+
+[sub_resource type="Resource" id="outcome_petra"]
+script = ExtResource("9_outcome")
+action = ExtResource("34_arrest")
+fact = SubResource("fact_petra")
+cases = Array[ExtResource("7_case")]([SubResource("case_irena")])
+result = "Петра Новак задержана у Мельничного моста. При ней три чужих кошеля, [один кожаный, вышит зелёным листом|koshel_nayden]. Призналась."
+solves_case = true
+
+[sub_resource type="Resource" id="outcome_tomas"]
+script = ExtResource("9_outcome")
+action = ExtResource("34_arrest")
+fact = SubResource("fact_tomas_card")
+cases = Array[ExtResource("7_case")]([SubResource("case_tomas")])
+result = "Белик на допросе признался: [камень никто не крал, он потерял его сам, дома|kamen_poteryal]. Бумага нужна была, чтобы гильдия не вычла из жалованья. Заявление ложное, дело закрыто."
+solves_case = true
+
+[sub_resource type="Resource" id="outcome_tryapka"]
+script = ExtResource("9_outcome")
+action = ExtResource("32_analysis")
+fact = SubResource("fact_tryapka")
+result = "Бурые пятна — не кровь. [Дубильный раствор, свежий, такой варят только на кожевне Ласло|rastvor]."
+
+[sub_resource type="Resource" id="outcome_marek"]
+script = ExtResource("9_outcome")
+action = ExtResource("34_arrest")
+fact = SubResource("fact_marek")
+cases = Array[ExtResource("7_case")]([SubResource("case_milan"), SubResource("case_dubilnaya_above")])
+result = "Марек Хорват задержан на кожевне. При нём чёрный потёртый кошель и дубинка. Сдал подельника, такого же подмастерья. Оба признались."
+solves_case = true
+
+[sub_resource type="Resource" id="outcome_sliz"]
+script = ExtResource("9_outcome")
+action = ExtResource("32_analysis")
+fact = SubResource("fact_sliz")
+result = "Слизь свежая, [мимикова|sliz_mimik]. Мимик кормленый, ручной: дикие такой жирной не оставляют."
+
+[sub_resource type="Resource" id="outcome_storozh"]
+script = ExtResource("9_outcome")
+action = ExtResource("33_potion")
+fact = SubResource("fact_storozh")
+result = "Сторож, поднятый зельем, сказал одно: «[Сундук встал на ножки и сам ушёл|sunduk_ushel]. А я пошёл за ним, а он меня — крышкой». И снова помер."
+
+[sub_resource type="Resource" id="outcome_zdenek"]
+script = ExtResource("9_outcome")
+action = ExtResource("34_arrest")
+fact = SubResource("fact_zdenek")
+cases = Array[ExtResource("7_case")]([SubResource("case_bank")])
+result = "Зденек Ружичка задержан. В подвале его лавки сидел мимик, сытый и довольный, а в нём — сундук Гольдмана со всем серебром. Зденек признался: мимика прикормил и неделю учил открывать двери."
+solves_case = true
+
+[sub_resource type="Resource" id="record_petra"]
+script = ExtResource("10_record")
+id = &"petra"
+text = "[Петра Новак|petra]. Полурослица, 24 года, рыжая. Судима за карманные кражи на пароме и пристанях. Живёт у Мельничного моста."
+keywords = PackedStringArray("полурослик", "карманница", "кража")
+
+[sub_resource type="Resource" id="record_lida"]
+script = ExtResource("10_record")
+id = &"lida"
+text = "[Лида Сокол|lida]. Человек, 52 года, рыжая. Торгует зеленью на Рыночной площади. Судимостей нет."
+keywords = PackedStringArray("торговка", "рынок")
+
+[sub_resource type="Resource" id="record_tomas"]
+script = ExtResource("10_record")
+id = &"tomas"
+text = "[Томаш Белик|tomas_card]. Человек, 31 год, маг-писарь гильдии магов. [Год назад заявлял о краже казённого гримуара, не нашли|grimuar]."
+keywords = PackedStringArray("маг", "писарь", "гильдия")
+
+[sub_resource type="Resource" id="record_marek"]
+script = ExtResource("10_record")
+id = &"marek"
+text = "[Марек Хорват|marek]. Человек, 16 лет, подмастерье на кожевне Ласло, Дубильная улица. Дважды приводили за драки."
+keywords = PackedStringArray("кожевник", "кожевня", "подросток", "драка")
+
+[sub_resource type="Resource" id="record_yan"]
+script = ExtResource("10_record")
+id = &"yan"
+text = "[Ян Ласло|yan]. Человек, 15 лет, сын кожевника Ласло с Дубильной улицы. Приводов нет."
+keywords = PackedStringArray("кожевня", "кожевник", "подросток")
+
+[sub_resource type="Resource" id="record_zdenek"]
+script = ExtResource("10_record")
+id = &"zdenek"
+text = "[Зденек Ружичка|zdenek]. Человек, 50 лет, лавка редкостей на Сырной улице, напротив меняльной конторы Гольдмана. [Имеет разрешение держать ручных мимиков|mimik_razreshenie]."
+keywords = PackedStringArray("мимик", "редкости", "торговец")
+
 [sub_resource type="Resource" id="visitor_irena"]
 script = ExtResource("4_visitor")
 id = &"irena"
+case_definition = SubResource("case_irena")
 display_name = "Ирена Ковач"
 portrait = ExtResource("20_irena")
 portrait_scale = 0.9
 monologue = "Сынок, [у меня кошель украли|koshel]. [Плыла на пароме|parom] [от Рыночной пристани|pristan], [вчера утром|vchera_utrom]. [Народу — не протолкнуться|tesno]. [Дома смотрю: корзинка перевёрнута, кошеля нет|korzinka]. А [там вся выручка за травы|vyruchka]."
-knowledge = Array[ExtResource("3_entry")]([SubResource("e_irena_01"), SubResource("e_irena_02"), SubResource("e_irena_03"), SubResource("e_irena_04"), SubResource("e_irena_05"), SubResource("e_irena_06"), SubResource("e_irena_07"), SubResource("e_irena_08"), SubResource("e_irena_09"), SubResource("e_irena_10"), SubResource("e_irena_11"), SubResource("e_irena_12"), SubResource("e_irena_13"), SubResource("e_irena_14"), SubResource("e_irena_15"), SubResource("e_irena_16"), SubResource("e_irena_17"), SubResource("e_irena_18")])
+knowledge = Array[ExtResource("3_entry")]([SubResource("e_irena_01"), SubResource("e_irena_02"), SubResource("e_irena_03"), SubResource("e_irena_04"), SubResource("e_irena_05"), SubResource("e_irena_06"), SubResource("e_irena_07"), SubResource("e_irena_08"), SubResource("e_irena_09"), SubResource("e_irena_10"), SubResource("e_irena_11"), SubResource("e_irena_12"), SubResource("e_irena_13"), SubResource("e_irena_14"), SubResource("e_irena_15"), SubResource("e_irena_16"), SubResource("e_irena_17"), SubResource("e_irena_18"), SubResource("e_irena_19")])
 fallback_replies = PackedStringArray("Ой, не помню я, сынок.", "Да откуда ж мне знать...", "Не знаю я, не обратила внимания.")
 accept_reply = "Спасибо, сынок. Найдёте ведь?"
 refuse_reply = "Как же так... Это же вся выручка."
@@ -752,6 +1043,7 @@ talk_out_fail_reply = ""
 [sub_resource type="Resource" id="visitor_tomas"]
 script = ExtResource("4_visitor")
 id = &"tomas"
+case_definition = SubResource("case_tomas")
 display_name = "Томаш Белик"
 portrait = ExtResource("21_tomas")
 portrait_scale = 1.05
@@ -767,11 +1059,12 @@ talk_out_fail_reply = ""
 [sub_resource type="Resource" id="visitor_milan"]
 script = ExtResource("4_visitor")
 id = &"milan"
+case_definition = SubResource("case_milan")
 display_name = "Милан Горак"
 portrait = ExtResource("22_milan")
 portrait_scale = 1.0
 monologue = "[Вчера ночью|nochyu] [во дворе за кожевней на Дубильной, 12|dvor_dubilnaya] [меня избили|izbili]. [Двое или трое, сзади|dvoe_troe]. Я [ничего не видел|nichego_ne_videl]. [Ребро сломали, лекарь в храме сказал|rebro]. И [кошель забрали|koshel_m]."
-knowledge = Array[ExtResource("3_entry")]([SubResource("e_milan_01"), SubResource("e_milan_02"), SubResource("e_milan_03"), SubResource("e_milan_04"), SubResource("e_milan_05"), SubResource("e_milan_06"), SubResource("e_milan_07"), SubResource("e_milan_08"), SubResource("e_milan_09"), SubResource("e_milan_10"), SubResource("e_milan_11"), SubResource("e_milan_12"), SubResource("e_milan_13")])
+knowledge = Array[ExtResource("3_entry")]([SubResource("e_milan_01"), SubResource("e_milan_02"), SubResource("e_milan_03"), SubResource("e_milan_04"), SubResource("e_milan_05"), SubResource("e_milan_06"), SubResource("e_milan_07"), SubResource("e_milan_08"), SubResource("e_milan_09"), SubResource("e_milan_10"), SubResource("e_milan_11"), SubResource("e_milan_12"), SubResource("e_milan_13"), SubResource("e_milan_14")])
 fallback_replies = PackedStringArray("Чего? Не знаю.", "Не видел я ничего, говорю же.", "Да откуда мне знать.")
 accept_reply = "Хоть кто-то."
 refuse_reply = "Да вы тут совсем..."
@@ -781,5 +1074,11 @@ talk_out_fail_reply = "Мне ребро сломали, а ты — не пиш
 
 [resource]
 script = ExtResource("1_day")
-facts = Array[ExtResource("2_fact")]([SubResource("fact_koshel"), SubResource("fact_parom"), SubResource("fact_pristan"), SubResource("fact_vchera_utrom"), SubResource("fact_tesno"), SubResource("fact_korzinka"), SubResource("fact_vyruchka"), SubResource("fact_sum_31"), SubResource("fact_torgovala_nedelyu"), SubResource("fact_okolo_10"), SubResource("fact_melnichny_most"), SubResource("fact_pristan_tolpa"), SubResource("fact_vsegda_parom"), SubResource("fact_devushka_ryadom"), SubResource("fact_zhalas"), SubResource("fact_korzinku_prizhimala"), SubResource("fact_koshel_primety"), SubResource("fact_koshel_staryi"), SubResource("fact_malenkaya"), SubResource("fact_ryzhaya"), SubResource("fact_zeleny_plasch"), SubResource("fact_bolshaya_sumka"), SubResource("fact_ne_znakoma"), SubResource("fact_vremya_1005"), SubResource("fact_most_pekarnya"), SubResource("fact_zhivet_u_mosta"), SubResource("fact_hvost"), SubResource("fact_bosaya"), SubResource("fact_sumka_holshovaya"), SubResource("fact_kamen"), SubResource("fact_vchera_vecherom"), SubResource("fact_taverna_grifon"), SubResource("fact_kazenny"), SubResource("fact_bumaga"), SubResource("fact_gildiya"), SubResource("fact_sum_400"), SubResource("fact_vychtut"), SubResource("fact_kamen_primety"), SubResource("fact_na_stole"), SubResource("fact_otoshel"), SubResource("fact_naberezhnaya"), SubResource("fact_traktirshik_yozef"), SubResource("fact_do_23"), SubResource("fact_izvozchik"), SubResource("fact_ne_spishut"), SubResource("fact_ne_derzhatsya"), SubResource("fact_yozef_primety"), SubResource("fact_chasto_v_taverne"), SubResource("fact_opis"), SubResource("fact_nochyu"), SubResource("fact_dvor_dubilnaya"), SubResource("fact_izbili"), SubResource("fact_dvoe_troe"), SubResource("fact_nichego_ne_videl"), SubResource("fact_rebro"), SubResource("fact_koshel_m"), SubResource("fact_okolo_1"), SubResource("fact_iz_karaula"), SubResource("fact_u_saraev"), SubResource("fact_temno"), SubResource("fact_kak_bili"), SubResource("fact_molodye_golosa"), SubResource("fact_koshel_m_primety"), SubResource("fact_sum_15"), SubResource("fact_pechatka"), SubResource("fact_zakryta"), SubResource("fact_zapis_lekarya"), SubResource("fact_vremya_0050"), SubResource("fact_karaul_polnoch"), SubResource("fact_podrostki")])
+facts = Array[ExtResource("2_fact")]([SubResource("fact_koshel"), SubResource("fact_parom"), SubResource("fact_pristan"), SubResource("fact_vchera_utrom"), SubResource("fact_tesno"), SubResource("fact_korzinka"), SubResource("fact_vyruchka"), SubResource("fact_sum_31"), SubResource("fact_torgovala_nedelyu"), SubResource("fact_okolo_10"), SubResource("fact_melnichny_most"), SubResource("fact_pristan_tolpa"), SubResource("fact_vsegda_parom"), SubResource("fact_devushka_ryadom"), SubResource("fact_zhalas"), SubResource("fact_korzinku_prizhimala"), SubResource("fact_koshel_primety"), SubResource("fact_koshel_staryi"), SubResource("fact_malenkaya"), SubResource("fact_ryzhaya"), SubResource("fact_zeleny_plasch"), SubResource("fact_bolshaya_sumka"), SubResource("fact_ne_znakoma"), SubResource("fact_vremya_1005"), SubResource("fact_most_pekarnya"), SubResource("fact_zhivet_u_mosta"), SubResource("fact_hvost"), SubResource("fact_bosaya"), SubResource("fact_sumka_holshovaya"), SubResource("fact_kamen"), SubResource("fact_vchera_vecherom"), SubResource("fact_taverna_grifon"), SubResource("fact_kazenny"), SubResource("fact_bumaga"), SubResource("fact_gildiya"), SubResource("fact_sum_400"), SubResource("fact_vychtut"), SubResource("fact_kamen_primety"), SubResource("fact_na_stole"), SubResource("fact_otoshel"), SubResource("fact_naberezhnaya"), SubResource("fact_traktirshik_yozef"), SubResource("fact_do_23"), SubResource("fact_izvozchik"), SubResource("fact_ne_spishut"), SubResource("fact_ne_derzhatsya"), SubResource("fact_yozef_primety"), SubResource("fact_chasto_v_taverne"), SubResource("fact_opis"), SubResource("fact_nochyu"), SubResource("fact_dvor_dubilnaya"), SubResource("fact_izbili"), SubResource("fact_dvoe_troe"), SubResource("fact_nichego_ne_videl"), SubResource("fact_rebro"), SubResource("fact_koshel_m"), SubResource("fact_okolo_1"), SubResource("fact_iz_karaula"), SubResource("fact_u_saraev"), SubResource("fact_temno"), SubResource("fact_kak_bili"), SubResource("fact_molodye_golosa"), SubResource("fact_koshel_m_primety"), SubResource("fact_sum_15"), SubResource("fact_pechatka"), SubResource("fact_zakryta"), SubResource("fact_zapis_lekarya"), SubResource("fact_vremya_0050"), SubResource("fact_karaul_polnoch"), SubResource("fact_podrostki"), SubResource("fact_volos"), SubResource("fact_volos_polurosl"), SubResource("fact_petra"), SubResource("fact_lida"), SubResource("fact_koshel_nayden"), SubResource("fact_tomas_card"), SubResource("fact_grimuar"), SubResource("fact_kamen_poteryal"), SubResource("fact_zapah"), SubResource("fact_marek"), SubResource("fact_yan"), SubResource("fact_tryapka"), SubResource("fact_rastvor"), SubResource("fact_sunduk"), SubResource("fact_storozh"), SubResource("fact_sliz"), SubResource("fact_sliz_mimik"), SubResource("fact_sunduk_ushel"), SubResource("fact_zdenek"), SubResource("fact_mimik_razreshenie")])
 visitors = Array[ExtResource("4_visitor")]([SubResource("visitor_irena"), SubResource("visitor_tomas"), SubResource("visitor_milan")])
+cases_from_above = Array[ExtResource("8_scheduled")]([SubResource("scheduled_bank")])
+departments = Array[ExtResource("11_department")]([ExtResource("30_alchemist"), ExtResource("31_opers")])
+outcomes = Array[ExtResource("9_outcome")]([SubResource("outcome_volos"), SubResource("outcome_petra"), SubResource("outcome_tomas"), SubResource("outcome_tryapka"), SubResource("outcome_marek"), SubResource("outcome_sliz"), SubResource("outcome_storozh"), SubResource("outcome_zdenek")])
+person_records = Array[ExtResource("10_record")]([SubResource("record_petra"), SubResource("record_lida"), SubResource("record_tomas"), SubResource("record_marek"), SubResource("record_yan"), SubResource("record_zdenek")])
+command_speaker = SubResource("speaker_command")
+card_index_speaker = SubResource("speaker_card_index")

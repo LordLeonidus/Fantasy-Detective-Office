@@ -9,13 +9,19 @@ extends Node
 @export var decision_panel: DecisionPanel
 ## Что написано на плашке речи до первого посетителя.
 @export_multiline var start_notice: String = "Утро. В коридоре ждут люди."
+## Что написано утром следующих дней: номер дня и сколько ждут в коридоре.
+@export_multiline var morning_notice: String = "Утро, день %d. В коридоре: %d."
 
 var _reception: Reception
+var _workday: Workday
 
 
 ## Начать показывать приём и блокнот.
-func bind(reception: Reception, notebook: Notebook) -> void:
+func bind(reception: Reception, notebook: Notebook, workday: Workday) -> void:
 	_reception = reception
+	_workday = workday
+	_workday.reception_open_changed.connect(func(_is_open: bool) -> void: _refresh_controls())
+	_workday.day_started.connect(_on_day_started)
 	speech_panel.bind(notebook)
 	notebook_panel.bind(notebook)
 	_reception.visitor_entered.connect(_on_visitor_entered)
@@ -48,8 +54,13 @@ func _on_question_chosen(entry: NotebookEntry, question: QuestionTemplate) -> vo
 	_refresh_questions()
 
 
+func _on_day_started(day: int) -> void:
+	speech_panel.show_notice(morning_notice % [day, _reception.get_waiting_count()])
+	_refresh_controls()
+
+
 func _refresh_controls() -> void:
-	decision_panel.show_state(_reception.has_visitor(), _reception.get_waiting_count())
+	decision_panel.show_state(_reception.has_visitor(), _reception.get_waiting_count(), _workday.is_reception_open())
 	speech_panel.set_retell_available(_reception.has_visitor())
 	_refresh_questions()
 

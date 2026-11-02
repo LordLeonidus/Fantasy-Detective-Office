@@ -49,6 +49,13 @@
 [ext_resource type="Texture2D" path="res://office/art/props/cabinet.png" id="66_cabinet"]
 [ext_resource type="Texture2D" path="res://office/art/props/crystal_orb.png" id="67_crystal_orb"]
 [ext_resource type="Texture2D" path="res://office/art/props/chair.png" id="68_chair"]
+[ext_resource type="Resource" path="res://investigation/investigation_rules.tres" id="70_investigation_rules"]
+[ext_resource type="Script" path="res://investigation/view/investigation_presenter.gd" id="71_investigation_presenter"]
+[ext_resource type="PackedScene" path="res://ui/desk/inbox_panel.tscn" id="72_inbox_panel"]
+[ext_resource type="PackedScene" path="res://ui/desk/card_index_panel.tscn" id="73_card_index_panel"]
+[ext_resource type="PackedScene" path="res://ui/desk/case_folder_panel.tscn" id="74_case_folder_panel"]
+[ext_resource type="Script" path="res://ui/desk/closeup_group.gd" id="75_closeup_group"]
+[ext_resource type="PackedScene" path="res://ui/day/day_panel.tscn" id="76_day_panel"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sky"]
 shader = ExtResource("5_shader")
@@ -67,7 +74,7 @@ shader = ExtResource("31_windows_shader")
 shader_parameter/light_color = ExtResource("33_windows_color")
 shader_parameter/window_ids = ExtResource("34_windows_id")
 
-[node name="Office" type="Control" node_paths=PackedStringArray("time_of_day", "reception_presenter", "clock_debug_panel")]
+[node name="Office" type="Control" node_paths=PackedStringArray("time_of_day", "reception_presenter", "investigation_presenter", "clock_debug_panel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,9 +84,11 @@ grow_vertical = 2
 script = ExtResource("1_controller")
 time_of_day = NodePath("TimeOfDay")
 reception_presenter = NodePath("Reception")
+investigation_presenter = NodePath("Investigation")
 clock_debug_panel = NodePath("ClockDebugPanel")
-reception_day = ExtResource("45_test_day")
+scenario = ExtResource("45_test_day")
 reception_rules = ExtResource("46_reception_rules")
+investigation_rules = ExtResource("70_investigation_rules")
 
 [node name="Sky" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_sky")
@@ -257,71 +266,50 @@ layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 
-[node name="CaseFolders" type="Button" parent="DeskItems" node_paths=PackedStringArray("closeup")]
+[node name="CaseFolders" type="Button" parent="DeskItems" node_paths=PackedStringArray("view")]
 layout_mode = 0
 offset_left = 640.0
 offset_top = 930.0
 offset_right = 820.0
 offset_bottom = 1000.0
 script = ExtResource("47_desk_item")
-closeup = NodePath("../../CloseupPanel")
+view = NodePath("../../CaseFolderPanel")
 title = "Папки дел"
-placeholder_body = "Здесь будут принятые заявления — по папке на дело. Появятся в следующей части этапа."
 
-[node name="Phone" type="Button" parent="DeskItems" node_paths=PackedStringArray("closeup")]
+[node name="CardIndex" type="Button" parent="DeskItems" node_paths=PackedStringArray("view")]
 layout_mode = 0
 offset_left = 840.0
 offset_top = 930.0
 offset_right = 1000.0
 offset_bottom = 1000.0
 script = ExtResource("47_desk_item")
-closeup = NodePath("../../CloseupPanel")
-title = "Камень связи"
-placeholder_body = "Поручения: провидцам гильдии магов, сыщикам стражи, запросы в меняльную контору. Появятся в следующей части этапа."
+view = NodePath("../../CardIndexPanel")
+title = "Картотека"
 
-[node name="CardIndex" type="Button" parent="DeskItems" node_paths=PackedStringArray("closeup")]
+[node name="Memo" type="Button" parent="DeskItems" node_paths=PackedStringArray("view")]
 layout_mode = 0
 offset_left = 1020.0
 offset_top = 930.0
-offset_right = 1180.0
+offset_right = 1160.0
 offset_bottom = 1000.0
 script = ExtResource("47_desk_item")
-closeup = NodePath("../../CloseupPanel")
-title = "Картотека"
-placeholder_body = "Карточки жителей района с поиском по имени, адресу и приметам. Появится в следующей части этапа."
+view = NodePath("../../MemoPanel")
+title = "Памятка"
 
-[node name="Memo" type="Button" parent="DeskItems" node_paths=PackedStringArray("closeup")]
+[node name="Inbox" type="Button" parent="DeskItems" node_paths=PackedStringArray("view")]
 layout_mode = 0
-offset_left = 1200.0
+offset_left = 1180.0
 offset_top = 930.0
 offset_right = 1340.0
 offset_bottom = 1000.0
 script = ExtResource("47_desk_item")
-closeup = NodePath("../../CloseupPanel")
-title = "Памятка"
-placeholder_body = "Кража: от 25 серебряных — уголовное дело, меньше — административное. Регистрировать на усмотрение дознавателя.
-
-Грабёж, побои средней тяжести и тяжелее, пропажа человека: регистрировать обязательно. Отказ или попытка отговорить — жалоба и выговор.
-
-Бумага о принятом заявлении выдаётся только по принятому заявлению.
-
-Кристаллы-наблюдатели в городе: на речном пароме и на Рыночных воротах. Память кристалла держится 3 дня."
-
-[node name="Inbox" type="Button" parent="DeskItems" node_paths=PackedStringArray("closeup")]
-layout_mode = 0
-offset_left = 1360.0
-offset_top = 930.0
-offset_right = 1480.0
-offset_bottom = 1000.0
-script = ExtResource("47_desk_item")
-closeup = NodePath("../../CloseupPanel")
+view = NodePath("../../InboxPanel")
 title = "Входящие"
-placeholder_body = "Утром здесь будут результаты поручений."
 
 [node name="NotebookPanel" parent="." instance=ExtResource("42_notebook_panel")]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 340.0
+offset_top = 230.0
 offset_right = 456.0
 offset_bottom = 1000.0
 
@@ -339,13 +327,52 @@ offset_top = 880.0
 offset_right = 1904.0
 offset_bottom = 1064.0
 
-[node name="CloseupPanel" parent="." instance=ExtResource("48_closeup")]
+[node name="DayPanel" parent="." instance=ExtResource("76_day_panel")]
+layout_mode = 0
+offset_left = 1600.0
+offset_top = 16.0
+offset_right = 1904.0
+offset_bottom = 170.0
+
+[node name="MemoPanel" parent="." instance=ExtResource("48_closeup")]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 110.0
+offset_right = 1460.0
+offset_bottom = 900.0
+title = "Памятка"
+body = "Алхимик (в подвале): анализ улик и зелья на заказ, в том числе зелье поднятия мёртвых. Платно, готово через несколько часов.
+
+Оперы: задержание. Бесплатно, через несколько часов.
+
+Поручение даётся по открытому делу: выберите запись в блокноте, ниже выберите дело и что поручить. Результаты приходят во входящие, в том числе ночью.
+
+Раскрытое дело приносит награду в казну отдела."
+
+[node name="CaseFolderPanel" parent="." instance=ExtResource("74_case_folder_panel")]
 layout_mode = 0
 offset_left = 560.0
 offset_top = 110.0
 offset_right = 1460.0
 offset_bottom = 900.0
 
+[node name="CardIndexPanel" parent="." instance=ExtResource("73_card_index_panel")]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 110.0
+offset_right = 1460.0
+offset_bottom = 900.0
+
+[node name="InboxPanel" parent="." instance=ExtResource("72_inbox_panel")]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 110.0
+offset_right = 1460.0
+offset_bottom = 900.0
+
+[node name="Closeups" type="Node" parent="." node_paths=PackedStringArray("views")]
+script = ExtResource("75_closeup_group")
+views = [NodePath("../MemoPanel"), NodePath("../CaseFolderPanel"), NodePath("../CardIndexPanel"), NodePath("../InboxPanel")]
 [node name="ClockDebugPanel" parent="." instance=ExtResource("7_panel")]
 layout_mode = 1
 anchors_preset = 5
@@ -363,3 +390,12 @@ visitor_view = NodePath("../Visitor")
 speech_panel = NodePath("../SpeechPanel")
 notebook_panel = NodePath("../NotebookPanel")
 decision_panel = NodePath("../DecisionPanel")
+
+[node name="Investigation" type="Node" parent="." node_paths=PackedStringArray("notebook_panel", "inbox_panel", "inbox_item", "card_index_panel", "case_folder_panel", "day_panel")]
+script = ExtResource("71_investigation_presenter")
+notebook_panel = NodePath("../NotebookPanel")
+inbox_panel = NodePath("../InboxPanel")
+inbox_item = NodePath("../DeskItems/Inbox")
+card_index_panel = NodePath("../CardIndexPanel")
+case_folder_panel = NodePath("../CaseFolderPanel")
+day_panel = NodePath("../DayPanel")

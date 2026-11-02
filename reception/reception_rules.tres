@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("1_rules")
-question_minutes = 10
+question_minutes = 3
 retell_minutes = 0
 question_catalog = ExtResource("2_catalog")

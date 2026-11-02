@@ -14,7 +14,7 @@ signal decision_made(visitor: VisitorDefinition, decision: Decision, succeeded: 
 ## Посетитель ушёл, место напротив свободно.
 signal visitor_left(visitor: VisitorDefinition)
 
-var _day: ReceptionDayDefinition
+var _scenario: ScenarioDefinition
 var _rules: ReceptionRules
 var _clock: GameClock
 var _notebook: Notebook
@@ -27,12 +27,12 @@ var _asked: Dictionary[String, bool] = {}
 var _fallback_index: Dictionary[StringName, int] = {}
 
 
-func _init(day: ReceptionDayDefinition, rules: ReceptionRules, clock: GameClock, notebook: Notebook) -> void:
-	_day = day
+func _init(scenario: ScenarioDefinition, rules: ReceptionRules, clock: GameClock, notebook: Notebook) -> void:
+	_scenario = scenario
 	_rules = rules
 	_clock = clock
 	_notebook = notebook
-	for error: String in _day.validate():
+	for error: String in _scenario.validate():
 		push_error(error)
 
 
@@ -41,14 +41,14 @@ func has_visitor() -> bool:
 
 
 func get_waiting_count() -> int:
-	return _day.visitors.size() - _next_index
+	return _scenario.visitors.size() - _next_index
 
 
 ## Позвать следующего из коридора.
 func call_next() -> void:
 	assert(not has_visitor(), "Напротив уже сидит посетитель")
 	assert(get_waiting_count() > 0, "В коридоре никого")
-	_current = _day.visitors[_next_index]
+	_current = _scenario.visitors[_next_index]
 	_next_index += 1
 	_records.append(ReceptionRecord.new(_current))
 	visitor_entered.emit(_current)
@@ -56,15 +56,14 @@ func call_next() -> void:
 
 
 ## Записать фразу сидящего напротив в блокнот или убрать, если она уже записана. Бесплатно.
-func toggle_note(fact: FactDefinition, source: VisitorDefinition) -> void:
+func toggle_note(fact: FactDefinition, source: SpeakerDefinition) -> void:
 	if source == _current:
 		_notebook.toggle(fact, source)
 
 
-## Убрать запись со слов сидящего напротив.
+## Убрать запись, пока она не закреплена: со слов сидящего напротив или из бумаг.
 func remove_note(entry: NotebookEntry) -> void:
-	if entry.source == _current:
-		_notebook.remove(entry.fact.id)
+	_notebook.remove(entry.fact.id)
 
 
 ## Попросить сидящего напротив рассказать всё с начала.
@@ -122,7 +121,7 @@ func get_records() -> Array[ReceptionRecord]:
 
 
 func _speak(visitor: VisitorDefinition, markup: String) -> void:
-	visitor_spoke.emit(SpokenLine.new(visitor, SpeechParser.parse(markup, _day)))
+	visitor_spoke.emit(SpokenLine.new(visitor, SpeechParser.parse(markup, _scenario)))
 
 
 func _next_fallback(visitor: VisitorDefinition) -> String:

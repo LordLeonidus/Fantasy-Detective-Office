@@ -2,10 +2,18 @@
 
 [ext_resource type="Script" path="res://ui/desk/closeup_panel.gd" id="1_closeup"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_closeup"]
+bg_color = Color(0.11, 0.1, 0.12, 0.97)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [node name="CloseupPanel" type="PanelContainer"]
 offset_right = 900.0
 offset_bottom = 520.0
 script = ExtResource("1_closeup")
+theme_override_styles/panel = SubResource("StyleBoxFlat_closeup")
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 2

@@ -8,6 +8,7 @@ signal call_next_requested
 
 const WAITING_TEXT := "В коридоре: %d"
 const NOBODY_WAITING_TEXT := "В коридоре никого"
+const CLOSED_TEXT := "Приём окончен, в коридоре: %d"
 ## Пункты списка решений по порядку.
 const DECISION_ITEMS: Array[Array] = [
 	[Reception.Decision.ACCEPT, "Принять заявление"],
@@ -28,13 +29,18 @@ func _ready() -> void:
 	_call_next_button.pressed.connect(call_next_requested.emit)
 
 
-## Обновить плашку: решать можно, когда напротив кто-то сидит; звать — когда место свободно
-## и в коридоре есть люди.
-func show_state(has_visitor: bool, waiting_count: int) -> void:
+## Обновить плашку: решать можно, когда напротив кто-то сидит; звать — когда место свободно,
+## приём открыт и в коридоре есть люди.
+func show_state(has_visitor: bool, waiting_count: int, reception_open: bool) -> void:
 	_decision_option.disabled = not has_visitor
 	_apply_button.disabled = not has_visitor
-	_call_next_button.disabled = has_visitor or waiting_count == 0
-	_queue_label.text = WAITING_TEXT % waiting_count if waiting_count > 0 else NOBODY_WAITING_TEXT
+	_call_next_button.disabled = has_visitor or waiting_count == 0 or not reception_open
+	if not reception_open:
+		_queue_label.text = CLOSED_TEXT % waiting_count
+	elif waiting_count > 0:
+		_queue_label.text = WAITING_TEXT % waiting_count
+	else:
+		_queue_label.text = NOBODY_WAITING_TEXT
 
 
 func _on_apply_pressed() -> void:

@@ -5,11 +5,11 @@ extends RefCounted
 ## записи с его слов закрепляются.
 
 var fact: FactDefinition
-var source: VisitorDefinition
+var source: SpeakerDefinition
 var is_fixed: bool = false
 
 
-func _init(entry_fact: FactDefinition, entry_source: VisitorDefinition) -> void:
+func _init(entry_fact: FactDefinition, entry_source: SpeakerDefinition) -> void:
 	fact = entry_fact
 	source = entry_source
 

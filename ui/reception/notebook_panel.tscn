@@ -62,11 +62,47 @@ theme_override_font_sizes/font_size = 16
 autowrap_mode = 3
 
 [node name="QuestionScroll" type="ScrollContainer" parent="Margin/Column"]
-custom_minimum_size = Vector2(0, 190)
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
 [node name="QuestionList" type="VBoxContainer" parent="Margin/Column/QuestionScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="OrderSeparator" type="HSeparator" parent="Margin/Column"]
+layout_mode = 2
+
+[node name="OrderHeader" type="HBoxContainer" parent="Margin/Column"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="OrderTitle" type="Label" parent="Margin/Column/OrderHeader"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Поручить по делу:"
+
+[node name="OrderCaseOption" type="OptionButton" parent="Margin/Column/OrderHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+clip_text = true
+fit_to_longest_item = false
+
+[node name="OrderHintLabel" type="Label" parent="Margin/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 3
+
+[node name="OrderScroll" type="ScrollContainer" parent="Margin/Column"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="OrderList" type="VBoxContainer" parent="Margin/Column/OrderScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

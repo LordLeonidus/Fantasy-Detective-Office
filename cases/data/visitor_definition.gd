@@ -1,10 +1,10 @@
 class_name VisitorDefinition
-extends Resource
+extends SpeakerDefinition
 ## Посетитель: кто он, что рассказывает, что отвечает на вопросы и как реагирует на решение.
 ## В репликах смысловые фразы размечены как `[текст|id]`; остальной текст не записывается.
 
-@export var id: StringName
-@export var display_name: String
+## Какое дело заводит принятое заявление. Пусто — заявление ни к чему не ведёт.
+@export var case_definition: CaseDefinition
 ## Портрет сидящего посетителя при ровном дневном свете, с прозрачным фоном.
 @export var portrait: Texture2D
 ## Размер относительно обычного посетителя: маленькая старушка меньше, крупный мужик больше.

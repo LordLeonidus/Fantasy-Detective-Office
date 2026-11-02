@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DepartmentDefinition" format=3]
+
+[ext_resource type="Script" path="res://cases/data/department_definition.gd" id="1_department"]
+[ext_resource type="Script" path="res://cases/data/department_action.gd" id="2_action"]
+[ext_resource type="Resource" path="res://investigation/departments/analysis.tres" id="3_analysis"]
+[ext_resource type="Resource" path="res://investigation/departments/raise_dead_potion.tres" id="4_potion"]
+
+[resource]
+script = ExtResource("1_department")
+id = &"alchemist"
+display_name = "Алхимик"
+actions = Array[ExtResource("2_action")]([ExtResource("3_analysis"), ExtResource("4_potion")])
